@@ -33,7 +33,7 @@ public class ArduinoDataReceiver : MonoBehaviour
         readArduinoData();
     }
 
-
+    //MISSING COLOUR SENSOR
     private void readArduinoData()
     {
         string data = serial.ReadExisting();
