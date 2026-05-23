@@ -5,7 +5,7 @@ public class ArduinoDataReceiver : MonoBehaviour
 {
     private SerialPort serial = new SerialPort("COM4", 9600);
 
-    public static ArduinoDataReceiver Instace;
+    public static ArduinoDataReceiver Instance;
 
     [Header("Coasters")]
     public float coaster1Data;
@@ -19,7 +19,7 @@ public class ArduinoDataReceiver : MonoBehaviour
 
     private void Awake()
     {
-        Instace = this;
+        Instance = this;
     }
     void Start()
     {
@@ -52,8 +52,6 @@ public class ArduinoDataReceiver : MonoBehaviour
 
         buttonData = int.Parse(values[3]);
         tapData = int.Parse(values[4]);
-
-
     }
 
 }
