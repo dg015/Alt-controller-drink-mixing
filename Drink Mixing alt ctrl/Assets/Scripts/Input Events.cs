@@ -4,46 +4,32 @@ using UnityEngine.InputSystem;
 
 public class InputEvents : MonoBehaviour
 {
+    public static InputEvents Instance;
+
     [SerializeField] public float clearCupDuration;
     [SerializeField] public float refillDuration;
     [SerializeField] public float pourDuration;
     [SerializeField] public float shakeDuration;
+    public bool CoasterOne { get; private set; }
+    public bool CoasterTwo { get; private set; }
+    public bool CoasterThree { get; private set; }
+    public Ingredients PouringBottle { get; private set; }
+    public Ingredients RefillingBottle { get; private set; }
 
     #region Events
     // Button/Lever Actions
     public static event Action OrderUp;
     public static event Action BeginClearCup;
-    public static event Action ClearCup;
     public static event Action CancelClearCup;
     public static event Action BeginPullTap;
-    public static event Action PullTap;
     public static event Action CancelPullTap;
-
-    // Coaster Actions displaying a bottle is placed there
-    public static event Action BlockCoasterOne;
-    public static event Action ClearCoasterOne;
-    public static event Action BlockCoasterTwo;
-    public static event Action ClearCoasterTwo;
-    public static event Action BlockCoasterThree;
-    public static event Action ClearCoasterThree;
-
-    // RFID Actions displaying which bottle is under tap
-    public static event Action RefillRed;
-    public static event Action RefillGreen;
-    public static event Action RefillBlue;
-    public static event Action RefillWhite;
 
     // RFID Actions displaying which bottle is being poured into cup
     public static event Action BeginPour;
-    public static event Action PourRed;
-    public static event Action PourGreen;
-    public static event Action PourBlue;
-    public static event Action PourWhite;
     public static event Action CancelPour;
 
     // Accelerometer Action returning movement of the cup
     public static event Action BeginShake;
-    public static event Action Shake;
     public static event Action CancelShake;
 
     // Input Action variables to subscribe 
@@ -65,6 +51,12 @@ public class InputEvents : MonoBehaviour
     #endregion
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+
         orderUp = InputSystem.actions.FindAction("Order Up");
         clearCup = InputSystem.actions.FindAction("Clear Cup");
         pullTap = InputSystem.actions.FindAction("Pull Tap");
@@ -84,39 +76,36 @@ public class InputEvents : MonoBehaviour
         orderUp.performed += OnOrderUp;
 
         clearCup.started += OnClearCup;
-        clearCup.performed += OnClearCup;
         clearCup.canceled += OnClearCup;
 
         pullTap.started += OnPullTap;
-        pullTap.performed += OnPullTap;
+        pullTap.canceled += OnPullTap;
 
-        coasterOne.performed += OnCoasterOne;
-        coasterTwo.performed += OnCoasterTwo;
-        coasterThree.performed += OnCoasterThree;
+        coasterOne.started += OnCoasterOne;
+        coasterTwo.started += OnCoasterTwo;
+        coasterThree.started += OnCoasterThree;
+        coasterOne.canceled += OnCoasterOne;
+        coasterTwo.canceled += OnCoasterTwo;
+        coasterThree.canceled += OnCoasterThree;
 
-        refillRed.performed += OnRefillRed;
-        refillGreen.performed += OnRefillGreen;
-        refillBlue.performed += OnRefillBlue;
-        refillWhite.performed += OnRefillWhite;
+        refillRed.started += OnRefillRed;
+        refillGreen.started += OnRefillGreen;
+        refillBlue.started += OnRefillBlue;
+        refillWhite.started += OnRefillWhite;
 
         pourRed.started += OnPourRed;
-        pourRed.performed += OnPourRed;
         pourRed.canceled += OnPourRed;
 
         pourGreen.started += OnPourGreen;
-        pourGreen.performed += OnPourGreen;
         pourGreen.canceled += OnPourGreen;
 
         pourBlue.started += OnPourBlue;
-        pourBlue.performed += OnPourBlue;
         pourBlue.canceled += OnPourBlue;
 
         pourWhite.started += OnPourWhite;
-        pourWhite.performed += OnPourWhite;
         pourWhite.canceled += OnPourWhite;
 
         shake.started += OnShake;
-        shake.performed += OnShake;
         shake.canceled += OnShake;
     }
     #region Event Invoking
@@ -126,10 +115,6 @@ public class InputEvents : MonoBehaviour
         if (ctx.started)
         {
             BeginClearCup?.Invoke();
-        }
-        else if (ctx.duration >= clearCupDuration)
-        {
-            ClearCup?.Invoke();
         }
         else if (ctx.canceled)
         {
@@ -143,50 +128,55 @@ public class InputEvents : MonoBehaviour
         {
             BeginPullTap?.Invoke();
         }
-        else if (ctx.duration >= refillDuration)
-        {
-            PullTap?.Invoke();
-        }
         else if (ctx.canceled)
         {
             CancelPullTap?.Invoke();
         }
     }
-
     void OnCoasterOne(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
-            BlockCoasterOne?.Invoke();
+            CoasterOne = true;
         if (ctx.canceled)
-            ClearCoasterOne?.Invoke();
+            CoasterOne = false;
     }
     void OnCoasterTwo(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
-            BlockCoasterTwo?.Invoke();
+            CoasterTwo = true;
         if (ctx.canceled)
-            ClearCoasterTwo?.Invoke();
+            CoasterTwo = false;
     }
     void OnCoasterThree(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
-            BlockCoasterThree?.Invoke();
+            CoasterThree = true;
         if (ctx.canceled)
-            ClearCoasterThree?.Invoke();
+            CoasterThree = false;
     }
-    void OnRefillRed(InputAction.CallbackContext ctx) => RefillRed?.Invoke();
-    void OnRefillGreen(InputAction.CallbackContext ctx) => RefillGreen?.Invoke();
-    void OnRefillBlue(InputAction.CallbackContext ctx) => RefillBlue?.Invoke();
-    void OnRefillWhite(InputAction.CallbackContext ctx) => RefillWhite?.Invoke();
+    
+    void OnRefillRed(InputAction.CallbackContext ctx)
+    {
+        RefillingBottle = Ingredients.Red;
+    }
+    void OnRefillGreen(InputAction.CallbackContext ctx)
+    {
+        RefillingBottle = Ingredients.Green;
+    }
+    void OnRefillBlue(InputAction.CallbackContext ctx)
+    {
+        RefillingBottle = Ingredients.Blue;
+    }
+    void OnRefillWhite(InputAction.CallbackContext ctx)
+    {
+        RefillingBottle = Ingredients.White;
+    }
     void OnPourRed(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
+            PouringBottle = Ingredients.Red;
             BeginPour?.Invoke();
-        }
-        else if (ctx.duration >= pourDuration)
-        {
-            PourRed?.Invoke();
         }
         else if (ctx.canceled)
         {
@@ -197,11 +187,8 @@ public class InputEvents : MonoBehaviour
     {
         if (ctx.started)
         {
+            PouringBottle = Ingredients.Green;
             BeginPour?.Invoke();
-        }
-        else if (ctx.duration >= pourDuration)
-        {
-            PourGreen?.Invoke();
         }
         else if (ctx.canceled)
         {
@@ -212,11 +199,8 @@ public class InputEvents : MonoBehaviour
     {
         if (ctx.started)
         {
+            PouringBottle = Ingredients.Blue;
             BeginPour?.Invoke();
-        }
-        else if (ctx.duration >= pourDuration)
-        {
-            PourBlue?.Invoke();
         }
         else if (ctx.canceled)
         {
@@ -227,11 +211,8 @@ public class InputEvents : MonoBehaviour
     {
         if (ctx.started)
         {
+            PouringBottle = Ingredients.White;
             BeginPour?.Invoke();
-        }
-        else if (ctx.duration >= pourDuration)
-        {
-            PourWhite?.Invoke();
         }
         else if (ctx.canceled)
         {
@@ -243,10 +224,6 @@ public class InputEvents : MonoBehaviour
         if (ctx.started)
         {
             BeginShake?.Invoke();
-        }
-        else if (ctx.duration >= pourDuration)
-        {
-            Shake?.Invoke();
         }
         else if (ctx.canceled)
         {

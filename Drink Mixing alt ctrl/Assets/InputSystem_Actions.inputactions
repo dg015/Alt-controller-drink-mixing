@@ -1011,7 +1011,7 @@
                     "id": "3c775781-7b0b-482a-9ac5-c255502fcb16",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -1020,7 +1020,7 @@
                     "id": "4de9198f-3d7e-4771-b8a5-02615f937573",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -1092,7 +1092,7 @@
                     "id": "5f632351-587e-454d-9e41-658913c58b5d",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -1101,7 +1101,7 @@
                     "id": "0d57a843-a281-4079-8a02-b372516e3efe",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -1110,7 +1110,7 @@
                     "id": "16f84f58-f47f-4d22-b558-d4c838a6771b",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -1119,7 +1119,7 @@
                     "id": "dc6f33db-7c02-4f60-bc4e-2e8b1a806f62",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -1128,7 +1128,7 @@
                     "id": "755fedb7-2bef-4422-999d-87c2e182a9d4",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 }
             ],
@@ -1158,7 +1158,7 @@
                 {
                     "name": "",
                     "id": "0cabec0a-5d50-46c5-90ec-b9d80bb94a88",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/rightShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
