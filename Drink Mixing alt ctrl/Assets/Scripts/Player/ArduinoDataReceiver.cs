@@ -15,7 +15,8 @@ public class ArduinoDataReceiver : MonoBehaviour
     public int tapData;
     [Header("Button")]
     public int buttonData;
-
+    [Header("RFID bottle")]
+    public string bottleData;
 
     private void Awake()
     {
@@ -34,6 +35,9 @@ public class ArduinoDataReceiver : MonoBehaviour
     }
 
     //MISSING COLOUR SENSOR
+    /// <summary>
+    /// ORDER of data retrieved COASTER1 -> COASTER2 -> COASTER3 -> BUTTON -> SWITCH -> RFID
+    /// </summary>
     private void readArduinoData()
     {
         string data = serial.ReadExisting();
@@ -52,6 +56,8 @@ public class ArduinoDataReceiver : MonoBehaviour
 
         buttonData = int.Parse(values[3]);
         tapData = int.Parse(values[4]);
+        bottleData = values[5];
+
     }
 
 }
