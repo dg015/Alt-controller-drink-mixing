@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{a2b98ee7-1465-45b9-83c9-fad11da79b82}">
+		<property name="name">
+			<value>Game end clock</value>
+		</property>
+		<relationship name="folder">
+			<destination>{6e9343c7-d2d0-4610-a68d-846008435200}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{d530a824-eca4-4b0b-8908-3e9da5b79021}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{d530a824-eca4-4b0b-8908-3e9da5b79021}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
