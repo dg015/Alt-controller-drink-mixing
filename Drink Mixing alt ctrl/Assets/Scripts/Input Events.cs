@@ -5,11 +5,6 @@ using UnityEngine.InputSystem;
 public class InputEvents : MonoBehaviour
 {
     public static InputEvents Instance;
-
-    [SerializeField] public float clearCupDuration;
-    [SerializeField] public float refillDuration;
-    [SerializeField] public float pourDuration;
-    [SerializeField] public float shakeDuration;
     public bool CoasterOne { get; private set; }
     public bool CoasterTwo { get; private set; }
     public bool CoasterThree { get; private set; }
