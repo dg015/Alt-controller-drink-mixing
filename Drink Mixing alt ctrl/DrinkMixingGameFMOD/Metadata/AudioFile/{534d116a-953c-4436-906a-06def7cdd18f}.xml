@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{534d116a-953c-4436-906a-06def7cdd18f}">
+		<property name="assetPath">
+			<value>Crowd Ambiance.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>60</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{de7a49ec-64bb-4be1-bff5-9e7c2110ebd7}</destination>
+		</relationship>
+	</object>
+</objects>

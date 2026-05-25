@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{02059bf4-dddc-4ee0-8101-873a09ee1366}">
+		<property name="name">
+			<value>Bottle fill progress</value>
+		</property>
+		<relationship name="folder">
+			<destination>{6e9343c7-d2d0-4610-a68d-846008435200}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{8ec561b0-5cd4-4fcd-a016-dd7dbe062964}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{8ec561b0-5cd4-4fcd-a016-dd7dbe062964}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
