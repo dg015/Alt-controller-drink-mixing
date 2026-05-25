@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private List<string> BottleIDs = new List<string> ();
 
     private string previousBottleID;
+    [SerializeField] private Bottles bottles;
 
     public void EmptyCup()
     {
@@ -54,16 +56,21 @@ public class Player : MonoBehaviour
 
     /// <summary>
     /// Adds ingridient to the cup based on the RFID tag ID string
+    /// TODO check if the bottle is full enough first 
     /// </summary>
-    private void addToCup()
+    public void addToCup(Enum ingridient)
     {
        //add to the cup only if the RFID has not been updated
         if (ArduinoDataReceiver.Instance.bottleData != previousBottleID)
         {
-            m_currentIngredients.Add(translateIDtoBottle(ArduinoDataReceiver.Instance.bottleData));
+            //get bottle type
+            bottles.isBeingUsed = true;
         }
-
-        previousBottleID = ArduinoDataReceiver.Instance.bottleData;
+        else
+        {
+            bottles.isBeingUsed = false;
+        }
+            previousBottleID = ArduinoDataReceiver.Instance.bottleData;
     }
 
     private void trashDrink()
@@ -73,6 +80,9 @@ public class Player : MonoBehaviour
         //clear ingridients in the cup;
         m_currentIngredients.Clear();
     }
+
+
+
 
 }
 

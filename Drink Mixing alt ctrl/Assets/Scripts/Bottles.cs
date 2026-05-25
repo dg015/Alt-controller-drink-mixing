@@ -2,11 +2,25 @@ using UnityEngine;
 
 public class Bottles : MonoBehaviour
 {
+    [Header("Type")]
+    [SerializeField] private Ingredients bottleIngridient;
+
+    [Header("Pouring")]
+    [SerializeField] private float timeToPour;
+    [SerializeField] private float currentPourTime;
+
+    [Header("Bottle capacity")]
     [SerializeField] public float fillPercentage = 100;
     [SerializeField] private float maxPercentage = 100;
-    [SerializeField] private Ingredients bottleIngridient;
+
+    [Header("Booleans")]
     [SerializeField] public bool isBeingFilled;
     [SerializeField] public bool isBeingUsed;
+
+    [Header("References")]
+    [SerializeField] private Player m_playerScript;
+
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,16 +29,30 @@ public class Bottles : MonoBehaviour
 
     private void Update()
     {
-        decreasePercentage();
+        if (isBeingUsed)
+        {
+            pourTimer();
+        }
         fillBottle();
     }
 
-    private void decreasePercentage()
+
+
+    public void pourTimer()
     {
-        if(isBeingUsed && fillPercentage > 0)
+        currentPourTime += Time.deltaTime;
+
+        if( currentPourTime >= timeToPour)
         {
-            fillPercentage -= Time.deltaTime;
+            decreasePercentage(currentPourTime);
+            currentPourTime = 0;
+            m_playerScript.addToCup(bottleIngridient);
         }
+    }
+
+    private void decreasePercentage(float ammount)
+    {
+        fillPercentage -= ammount;
     }
 
     private void fillBottle()
