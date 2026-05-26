@@ -3,7 +3,7 @@ using System.IO.Ports;
 
 public class ArduinoDataReceiver : MonoBehaviour
 {
-    private SerialPort serial = new SerialPort("COM4", 9600);
+    private SerialPort serial = new SerialPort("COM5", 115200);
 
     public static ArduinoDataReceiver Instance;
 
@@ -19,6 +19,8 @@ public class ArduinoDataReceiver : MonoBehaviour
     public string pouringRFIDData;
     public string refilRFIDData;
 
+
+
     private void Awake()
     {
         Instance = this;
@@ -32,6 +34,7 @@ public class ArduinoDataReceiver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("running");
         readArduinoData();
     }
 
@@ -41,24 +44,43 @@ public class ArduinoDataReceiver : MonoBehaviour
     /// </summary>
     private void readArduinoData()
     {
-        string data = serial.ReadExisting();
 
-        string[] values = data.Split(",");
-
-        if (values.Length < 3)
+        try
         {
-            return;
-        }
-        //Debug.Log("arduino data: " + data + " - values[0]: " + values[0]);
-        //Debug.Log(values[2]);
-        coaster1Data = int.Parse(values[0]);
-        coaster2Data = int.Parse(values[1]);
-        coaster3Data = int.Parse(values[2]);
+            if (!serial.IsOpen) return;
+            if (serial.BytesToRead == 0) return;
 
-        buttonData = int.Parse(values[3]);
-        tapData = int.Parse(values[4]);
-        pouringRFIDData = values[5];
+            string data = serial.ReadLine();
+
+            string[] values = data.Split(",");
+
+            if (values.Length < 6) return;
+
+            float.TryParse(values[0], out coaster1Data);
+            float.TryParse(values[1], out coaster2Data);
+            float.TryParse(values[2], out coaster3Data);
+
+            int.TryParse(values[3], out buttonData);
+            int.TryParse(values[4], out tapData);
+
+            refilRFIDData = values[5];
+
+
+           //Debug.Log(coaster1Data);
+
+        }
+        catch (System.TimeoutException)
+        {
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning("serial error :" + e.Message);
+        }
+
 
     }
-
+    private void OnApplicationQuit()
+    {
+        serial.Close();
+    }
 }

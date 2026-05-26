@@ -158,8 +158,8 @@ public class Player : MonoBehaviour
                 {
                     bottles[i].isBeingFilled = false;
                 }
-                Debug.Log("refilling bottle: " + bottles[i].name);
             }
+            Debug.Log("tap active");
         }
         else
         {

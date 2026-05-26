@@ -1,13 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour
 {
     [SerializeField] private float gameTimerLimit;
-    [SerializeField] private bool isGameover;
+    [SerializeField] public bool isGameover;
     private float currentGameTimer;
 
     [SerializeField] private TextMeshProUGUI timerText;
+
+    [SerializeField] private GameObject endGameUI;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,6 +27,10 @@ public class GameTimer : MonoBehaviour
         if (!isGameover)
         {
             countDownTimer();
+        }
+        else if( isGameover == true )
+        {
+            enableEndGameUI();
         }
     }
 
@@ -38,6 +47,12 @@ public class GameTimer : MonoBehaviour
         {
             isGameover = true;
         }
+
+    }
+
+    private void enableEndGameUI()
+    {
+        endGameUI.SetActive(true);
 
     }
 
