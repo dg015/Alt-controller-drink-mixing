@@ -111,23 +111,25 @@ public class Player : MonoBehaviour
     private void buttonManager()
     {
         int currentButtonState = ArduinoDataReceiver.Instance.buttonData;
-        if (currentButtonState == 1)
+        if (currentButtonState == 0)
         {
             //check how long the button has been held for
             currentButtonHoldTime += Time.deltaTime;
         }
         //trigger   O N L Y   if it was previously held otherwise it will trigger everytime
-        else if(currentButtonState == 0 && previousButtonState == 1)
+        else if(currentButtonState == 1 && previousButtonState == 0)
         {
             //trash the drink if its been held for a while
             if (currentButtonHoldTime >= trashButtonHoldTime)
             {
+                Debug.Log("trash drink");
                 trashDrink();
                 currentButtonHoldTime = 0;
             }
             //otherwise send drink
             else if (currentButtonHoldTime <= trashButtonHoldTime)
             {
+                Debug.Log("send drink");
                 //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
                 Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
                 currentButtonHoldTime = 0;

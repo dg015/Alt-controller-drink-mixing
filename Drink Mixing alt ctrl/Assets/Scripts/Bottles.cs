@@ -13,6 +13,7 @@ public class Bottles : MonoBehaviour
     [Header("Bottle capacity")]
     [SerializeField] public float fillPercentage = 100;
     [SerializeField] private float maxPercentage = 100;
+    [SerializeField] private int fillSpeed;
 
     [Header("Booleans")]
     [SerializeField] public bool isBeingFilled;
@@ -64,7 +65,7 @@ public class Bottles : MonoBehaviour
     {
         if (isBeingFilled && fillPercentage < maxPercentage)
         {
-            fillPercentage += Time.deltaTime;
+            fillPercentage = fillPercentage += Time.deltaTime * fillSpeed;
         }
     }
 
