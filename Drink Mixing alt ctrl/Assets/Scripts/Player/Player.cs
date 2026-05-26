@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
         }
         refilBottle();
         buttonManager();
-
     }
 
     //this is to select the bottle for pouring
@@ -73,28 +72,27 @@ public class Player : MonoBehaviour
             {
                 bottles[i].isBeingUsed = false;
             }
-
         }
     }
 
 
     //checks the LUX value from each coaster and compares it to see which is below the treshhold and returns the number of the coaster as an int
     private int returnSelectedCoaster()
-    {
-        if(ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger)
+    {            
+        //return coaster 1
+        if (ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger)
         {
             return 1;
-            //return coaster 1
         }
+        //return coaster 2
         else if (ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger)
         {
             return 2;
-            //return coaster 2
         }
-        else if(ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger)
+        //return coaster 3
+        else if (ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger)
         {
             return 3;
-            //return coaster 3
         }
         else
         {
@@ -102,10 +100,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    //Call manager for send order but check if it was not a long press (long press will trash the drink)
+    /// <summary>
+    /// Checks for long the button was pressed for and then decides what to do afterwards
+    /// 1 - the button is held and timer starts rolling
+    /// transition from 0 to 1 executes task based on how long it was held
+    ///     Long hold -> trash drink
+    ///     Short hold -> send drink
+    /// if the previous state was 0 then do nothing so it doesnt trigger every frame
+    /// </summary>
     private void buttonManager()
     {
-
         int currentButtonState = ArduinoDataReceiver.Instance.buttonData;
         if (currentButtonState == 1)
         {
@@ -133,6 +137,10 @@ public class Player : MonoBehaviour
         previousButtonState = currentButtonState;
     }
 
+    /// <summary>
+    /// Grab the refil bottle RFID data
+    /// compare the RFID tag with all the bottles and if it matches then set that bottle as refilling otherwise set as not being refilled
+    /// </summary>
     private void refilBottle()
     {
         string currentRefilBottle = ArduinoDataReceiver.Instance.refilRFIDData;
