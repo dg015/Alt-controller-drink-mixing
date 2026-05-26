@@ -1,9 +1,10 @@
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
 public class Bottles : MonoBehaviour
 {
     [Header("Type")]
-    [SerializeField] private Ingredients bottleIngridient;
+    [SerializeField] public Ingredients bottleIngridient;
 
     [Header("Pouring")]
     [SerializeField] private float timeToPour;
@@ -20,7 +21,9 @@ public class Bottles : MonoBehaviour
     [Header("References")]
     [SerializeField] private Player m_playerScript;
 
-    
+    [Header("RFID")]
+    [SerializeField] public string RFIDTag;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,6 +36,7 @@ public class Bottles : MonoBehaviour
         {
             pourTimer();
         }
+
         fillBottle();
     }
 
@@ -44,9 +48,11 @@ public class Bottles : MonoBehaviour
 
         if( currentPourTime >= timeToPour)
         {
+           
             decreasePercentage(currentPourTime);
+            
+            m_playerScript.currentIngredients.Add(bottleIngridient);
             currentPourTime = 0;
-            m_playerScript.addToCup(bottleIngridient);
         }
     }
 

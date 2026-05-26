@@ -5,53 +5,46 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private List <Ingredients> m_currentIngredients = new List <Ingredients> ();
+    [SerializeField] public List <Ingredients> currentIngredients = new List <Ingredients> ();
     [SerializeField] private int m_numOfIngredientsPerDrink;
 
+    [Header("Bottle managing")]
     // 0 = red | 1 = green | 2 = blue | 3 = white
-    [SerializeField] private List<string> BottleIDs = new List<string> ();
+    [SerializeField] private List <Bottles> bottles;
 
+    [SerializeField] private Bottles currentPourBottle;
+    [SerializeField] private Bottles currentRefilBottle;
     private string previousBottleID;
-    [SerializeField] private Bottles bottles;
 
-    public void EmptyCup()
+    [Header("Coaster Managing")]
+    [SerializeField] private float luxValueTrigger;
+
+
+    private void Update()
     {
-        m_currentIngredients.Clear ();
+        //POURING
+        //get the new RFID FOR POURING
+        string currentPourBottleRFID = ArduinoDataReceiver.Instance.pouringRFIDData;
+        //compare to previous RFID so it updates only if its a different bottle
+        if (currentPourBottleRFID != previousBottleID)
+        {
+            //select the new bottle
+            selectBottleByRFID(currentPourBottleRFID);
+            previousBottleID = currentPourBottleRFID;
+        }
+        refilBottle();
     }
 
-    //kinda goofy but I will fix that later
-    /// <summary>
-    /// This script gets the bottle RFID id and translates it into a bottle colour.
-    /// </summary>
-    /// <param name="ID"> this should be the RFID stringdata</param>
-    /// <returns></returns>
-    private Ingredients translateIDtoBottle(string ID)
+    //this is to select the bottle for pouring
+    private void selectBottleByRFID(string RFID)
     {
-        if(ID == BottleIDs[0])
+        foreach (var bottle in bottles)
         {
-            //add the red drink
-            return Ingredients.Red;
+            if (bottle.RFIDTag == RFID)
+            {
+                currentPourBottle = bottle;
+            }
         }
-        else if (ID == BottleIDs[1])
-        {
-            //add the green drink
-            return Ingredients.Green;
-        }
-        else if (ID == BottleIDs[2])
-        {
-            //add the blue drink
-            return Ingredients.Blue;
-        }
-        else if (ID == BottleIDs[3])
-        {
-            //add the white drink
-            return Ingredients.White;
-        }
-        else
-        {
-            return Ingredients.White;
-        }
-
     }
 
     /// <summary>
@@ -60,17 +53,90 @@ public class Player : MonoBehaviour
     /// </summary>
     public void addToCup(Enum ingridient)
     {
-       //add to the cup only if the RFID has not been updated
-        if (ArduinoDataReceiver.Instance.bottleData != previousBottleID)
+        for (int i = 0; i < bottles.Count; i++)
         {
-            //get bottle type
-            bottles.isBeingUsed = true;
+            //loop through all bottles and check if the RFID tag matches the bottle
+            if (currentPourBottle.RFIDTag == bottles[i].RFIDTag)
+            {
+                //enable pouring of the current bottle
+                bottles[i].isBeingUsed = true;
+                Debug.Log("Pouring bottle: " + bottles[i].name);
+            }
+            else
+            {
+                bottles[i].isBeingUsed = false;
+            }
+
+        }
+    }
+
+
+    //checks the LUX value from each coaster and compares it to see which is below the treshhold and returns the number of the coaster as an int
+    private int returnSelectedCoaster()
+    {
+        if(ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger)
+        {
+            return 1;
+            //return coaster 1
+        }
+        else if (ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger)
+        {
+            return 2;
+            //return coaster 2
+        }
+        else if(ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger)
+        {
+            return 3;
+            //return coaster 3
         }
         else
         {
-            bottles.isBeingUsed = false;
+            return 0;
         }
-            previousBottleID = ArduinoDataReceiver.Instance.bottleData;
+    }
+
+    //Call manager for send order but check if it was not a long press (long press will trash the drink)
+    private void sendOrder()
+    {
+        //TODO add logic to check if it was not a long press
+        if(ArduinoDataReceiver.Instance.buttonData == 1)
+        {
+            //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
+            Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
+        }
+
+
+    }
+
+    private void refilBottle()
+    {
+        string currentRefilBottle = ArduinoDataReceiver.Instance.refilRFIDData;
+        if (ArduinoDataReceiver.Instance.tapData == 1)
+        {
+            for (int i = 0; i < bottles.Count; i++)
+            {
+                //loop through all bottles and check if the RFID tag matches the bottle
+                if (currentRefilBottle == bottles[i].RFIDTag)
+                {
+                    //enable pouring of the current bottle
+                    bottles[i].isBeingFilled = true;
+                }
+                else
+                {
+                    bottles[i].isBeingFilled = false;
+                }
+                Debug.Log("refilling bottle: " + bottles[i].name);
+            }
+        }
+        else
+        {
+            Debug.Log("tap unactive");
+        }
+    }
+
+    public void EmptyCup()
+    {
+        currentIngredients.Clear();
     }
 
     private void trashDrink()
@@ -78,7 +144,7 @@ public class Player : MonoBehaviour
         //TODO check for long the player has pressed the button for
 
         //clear ingridients in the cup;
-        m_currentIngredients.Clear();
+        currentIngredients.Clear();
     }
 
 

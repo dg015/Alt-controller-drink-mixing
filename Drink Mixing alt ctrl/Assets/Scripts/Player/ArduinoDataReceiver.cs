@@ -16,7 +16,8 @@ public class ArduinoDataReceiver : MonoBehaviour
     [Header("Button")]
     public int buttonData;
     [Header("RFID bottle")]
-    public string bottleData;
+    public string pouringRFIDData;
+    public string refilRFIDData;
 
     private void Awake()
     {
@@ -56,7 +57,7 @@ public class ArduinoDataReceiver : MonoBehaviour
 
         buttonData = int.Parse(values[3]);
         tapData = int.Parse(values[4]);
-        bottleData = values[5];
+        pouringRFIDData = values[5];
 
     }
 
