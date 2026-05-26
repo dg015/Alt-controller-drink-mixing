@@ -19,6 +19,11 @@ public class Player : MonoBehaviour
     [Header("Coaster Managing")]
     [SerializeField] private float luxValueTrigger;
 
+    [Header("Button")]
+    [SerializeField] private float currentButtonHoldTime;
+    [SerializeField] private float trashButtonHoldTime;
+    [SerializeField] private bool isHoldingButton;
+    [SerializeField] private int previousButtonState;
 
     private void Update()
     {
@@ -33,6 +38,8 @@ public class Player : MonoBehaviour
             previousBottleID = currentPourBottleRFID;
         }
         refilBottle();
+        buttonManager();
+
     }
 
     //this is to select the bottle for pouring
@@ -96,16 +103,34 @@ public class Player : MonoBehaviour
     }
 
     //Call manager for send order but check if it was not a long press (long press will trash the drink)
-    private void sendOrder()
+    private void buttonManager()
     {
-        //TODO add logic to check if it was not a long press
-        if(ArduinoDataReceiver.Instance.buttonData == 1)
+
+        int currentButtonState = ArduinoDataReceiver.Instance.buttonData;
+        if (currentButtonState == 1)
         {
-            //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
-            Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
+            //check how long the button has been held for
+            currentButtonHoldTime += Time.deltaTime;
         }
-
-
+        //trigger   O N L Y   if it was previously held otherwise it will trigger everytime
+        else if(currentButtonState == 0 && previousButtonState == 1)
+        {
+            //trash the drink if its been held for a while
+            if (currentButtonHoldTime >= trashButtonHoldTime)
+            {
+                trashDrink();
+                currentButtonHoldTime = 0;
+            }
+            //otherwise send drink
+            else if (currentButtonHoldTime <= trashButtonHoldTime)
+            {
+                //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
+                Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
+                currentButtonHoldTime = 0;
+            }
+           
+        }
+        previousButtonState = currentButtonState;
     }
 
     private void refilBottle()
