@@ -204,6 +204,7 @@ MonoBehaviour:
   currentPourTime: 0
   fillPercentage: 100
   maxPercentage: 100
+  fillSpeed: 0
   isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
@@ -766,6 +767,7 @@ MonoBehaviour:
   currentPourTime: 0
   fillPercentage: 100
   maxPercentage: 100
+  fillSpeed: 0
   isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
@@ -1072,6 +1074,7 @@ MonoBehaviour:
   currentPourTime: 0
   fillPercentage: 100
   maxPercentage: 100
+  fillSpeed: 0
   isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
@@ -1716,9 +1719,9 @@ MonoBehaviour:
   - {fileID: 686062591}
   currentPourBottle: {fileID: 0}
   currentRefilBottle: {fileID: 0}
-  luxValueTrigger: 0
+  luxValueTrigger: 160
   currentButtonHoldTime: 0
-  trashButtonHoldTime: 0
+  trashButtonHoldTime: 2
   isHoldingButton: 0
   previousButtonState: 0
 --- !u!4 &1115572163
@@ -2705,6 +2708,7 @@ MonoBehaviour:
   currentPourTime: 0
   fillPercentage: 100
   maxPercentage: 100
+  fillSpeed: 0
   isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
