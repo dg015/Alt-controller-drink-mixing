@@ -23,7 +23,9 @@ public class Bottles : MonoBehaviour
     [SerializeField] private Player m_playerScript;
 
     [Header("RFID")]
-    [SerializeField] public string RFIDTag;
+    [SerializeField] public string FillingRFIDTag;
+    [SerializeField] public string PouringRFIDTag;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,7 +50,6 @@ public class Bottles : MonoBehaviour
 
         if( currentPourTime >= timeToPour)
         {
-           
             decreasePercentage(currentPourTime);
             
             m_playerScript.currentIngredients.Add(bottleIngridient);

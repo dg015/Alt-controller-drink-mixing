@@ -15,8 +15,10 @@ public class ArduinoDataReceiver : MonoBehaviour
     public int tapData;
     [Header("Button")]
     public int buttonData;
-    [Header("RFID bottle")]
+    [Header("RFID")]
+    //top of the bottle
     public string pouringRFIDData;
+    //bottom of the bottle
     public string refilRFIDData;
 
     //to ignore the first few junk frames
@@ -38,9 +40,10 @@ public class ArduinoDataReceiver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //little warmup for the arduino
+        //little warmup for the arduino so it ignores the junk content
         initTimer += Time.deltaTime;
 
+        //little timer
         if (!isInitialized && initTimer < initTime)
         {
             return; 
@@ -51,31 +54,32 @@ public class ArduinoDataReceiver : MonoBehaviour
             isInitialized = true;
             Debug.Log("Arduino warmup complete");
         }
-
-        Debug.Log("running");
         readArduinoData();
-
-
     }
 
-    //MISSING COLOUR SENSOR
     /// <summary>
     /// ORDER of data retrieved COASTER1 -> COASTER2 -> COASTER3 -> BUTTON -> SWITCH -> RFID
     /// </summary>
     private void readArduinoData()
     {
-
         try
         {
+            //chek if serial is open
             if (!serial.IsOpen) return;
+
+            //check if theres content to read
             if (serial.BytesToRead == 0) return;
 
+            //read content
             string data = serial.ReadLine();
 
+            //separate it based on ","
             string[] values = data.Split(",");
 
+            //check if its receiving all the data
             if (values.Length < 6) return;
 
+            //parse variables into desired format
             float.TryParse(values[0], out coaster1Data);
             float.TryParse(values[1], out coaster2Data);
             float.TryParse(values[2], out coaster3Data);
@@ -85,20 +89,18 @@ public class ArduinoDataReceiver : MonoBehaviour
 
             refilRFIDData = values[5];
 
-
-           //Debug.Log(coaster1Data);
-
         }
+        //if timeout just timeout
         catch (System.TimeoutException)
         {
         }
+        //if it throws in an exception write it to log
         catch (System.Exception e)
         {
             Debug.LogWarning("serial error :" + e.Message);
         }
-
-
     }
+    //close serial door on close to stop it from future errors
     private void OnApplicationQuit()
     {
         serial.Close();

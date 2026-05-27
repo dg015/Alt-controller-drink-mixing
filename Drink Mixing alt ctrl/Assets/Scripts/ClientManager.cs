@@ -40,7 +40,8 @@ public class ClientManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentClients.Count < 3)
+        removeEmptySlots();
+        if (currentClients.Count < 3)
             runTime += Time.deltaTime;
         if (runTime >= cooldown)
         {
@@ -52,8 +53,23 @@ public class ClientManager : MonoBehaviour
     public void FreeSpawn(Spawner spawn)
     {
         spawn.isOccupied = false;
+        
     }
 
+
+    private void removeEmptySlots()
+    {
+        //go through list
+        for (int i = 0; i < currentClients.Count; ++i)
+        {
+            //if any of the slots are null
+            if (currentClients[i] == null)
+            {
+                //remove that one slot
+                currentClients.RemoveAt(i);
+            }
+        }
+    }
     
     private void spawnClient()
     {

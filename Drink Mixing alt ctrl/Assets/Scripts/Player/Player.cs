@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     // 0 = red | 1 = green | 2 = blue | 3 = white
     [SerializeField] private List <Bottles> bottles;
 
-    [SerializeField] private Bottles currentPourBottle;
-    [SerializeField] private Bottles currentRefilBottle;
+    //[SerializeField] private Bottles currentPourBottle;
+    //[SerializeField] private Bottles currentRefilBottle;
     private string previousBottleID;
 
     [Header("Coaster Managing")]
@@ -39,12 +39,15 @@ public class Player : MonoBehaviour
         //get the new RFID FOR POURING
         string currentPourBottleRFID = ArduinoDataReceiver.Instance.pouringRFIDData;
         //compare to previous RFID so it updates only if its a different bottle
+        /*
         if (currentPourBottleRFID != previousBottleID)
         {
             //select the new bottle
             selectBottleByRFID(currentPourBottleRFID);
             previousBottleID = currentPourBottleRFID;
         }
+        */
+        pourBottle();
         refilBottle();
         buttonManager();
 
@@ -53,18 +56,22 @@ public class Player : MonoBehaviour
         debugAddToCup();
     }
 
+    /*
     //this is to select the bottle for pouring
     private void selectBottleByRFID(string RFID)
     {
         foreach (var bottle in bottles)
         {
-            if (bottle.RFIDTag == RFID)
+            if (bottle.PouringRFIDTag == RFID)
             {
                 currentPourBottle = bottle;
             }
         }
     }
 
+    */
+
+    /*
     /// <summary>
     /// Adds ingridient to the cup based on the RFID tag ID string
     /// TODO check if the bottle is full enough first 
@@ -74,7 +81,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < bottles.Count; i++)
         {
             //loop through all bottles and check if the RFID tag matches the bottle
-            if (currentPourBottle.RFIDTag == bottles[i].RFIDTag)
+            if (currentPourBottle.PouringRFIDTag == bottles[i].PouringRFIDTag)
             {
                 //enable pouring of the current bottle
                 bottles[i].isBeingUsed = true;
@@ -86,6 +93,8 @@ public class Player : MonoBehaviour
             }
         }
     }
+    */
+
 
 
     //checks the LUX value from each coaster and compares it to see which is below the treshhold and returns the number of the coaster as an int
@@ -106,7 +115,7 @@ public class Player : MonoBehaviour
         {
             return 3;
         }
-        else
+        else // return 0 since there are no coaster with the id 0
         {
             return 0;
         }
@@ -147,25 +156,33 @@ public class Player : MonoBehaviour
                 checkClientRecipe();
                 currentButtonHoldTime = 0;
             }
-           
         }
+        //reset stat
         previousButtonState = currentButtonState;
     }
 
 
+    //check clients recipe
     private void checkClientRecipe()
     {
+        //get the current client list
         List <Client> clientList = clientManager.currentClients;
+
+        //get which coaster is selected
         returnSelectedCoaster();
+
+        //run through the list
         for (int i  = 0; i < clientList.Count; i++)
         {
-            Debug.Log(clientList[i].coaster);
+            //Debug.Log(clientList[i].coaster);
+            //check which client contains the matchin coaster
             if(returnSelectedCoaster() == clientList[i].coaster)
             {
                 //Debug.Log(clientList[i].order);
-                
+                //compare the list of the client with the matching coaster
                 if(compareLists(currentIngredients, clientList[i].order) == true)
                 {
+                    //if it matches set client as served
                     clientList[i].hasBeenServed = true;
                 }
 
@@ -180,13 +197,14 @@ public class Player : MonoBehaviour
         {
             return false;
         }
+
+        //check items by items
         for (int i = 0; i < playerOrder.Count; i++)
         {
             if (playerOrder[i] != clientOrder[i])
             {
                 return false;
-            }
-            
+            }   
         }
         return true;
     }
@@ -203,7 +221,7 @@ public class Player : MonoBehaviour
             for (int i = 0; i < bottles.Count; i++)
             {
                 //loop through all bottles and check if the RFID tag matches the bottle
-                if (currentRefilBottle == bottles[i].RFIDTag)
+                if (currentRefilBottle == bottles[i].FillingRFIDTag)
                 {
                     //enable pouring of the current bottle
                     bottles[i].isBeingFilled = true;
@@ -213,46 +231,62 @@ public class Player : MonoBehaviour
                     bottles[i].isBeingFilled = false;
                 }
             }
-            Debug.Log("tap active");
-        }
-        else
-        {
-            Debug.Log("tap unactive");
         }
     }
 
-    public void EmptyCup()
+    private void pourBottle()
     {
-        currentIngredients.Clear();
+        string currentPourBottle = ArduinoDataReceiver.Instance.refilRFIDData;
+        for (int i = 0; i < bottles.Count; i++)
+        {
+            //loop through all bottles and check if the RFID tag matches the bottle
+            if (currentPourBottle == bottles[i].PouringRFIDTag)
+            {
+                //enable pouring of the current bottle
+                bottles[i].isBeingUsed = true;
+            }
+            else
+            {
+                bottles[i].isBeingUsed = false;
+            }
+        }
     }
 
     private void trashDrink()
     {
-        //TODO check for long the player has pressed the button for
-
-        //clear ingridients in the cup;
         currentIngredients.Clear();
     }
 
 
-
     private void debugAddToCup()
     {
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKey(KeyCode.R))
         {
-            currentIngredients.Add(Ingredients.Red);
+            //currentIngredients.Add(Ingredients.Red);
+            bottles[0].isBeingUsed = true;
         }
-        if (Input.GetKeyUp(KeyCode.G))
+        else if (Input.GetKey(KeyCode.G))
         {
-            currentIngredients.Add(Ingredients.Green);
+            //currentIngredients.Add(Ingredients.Green);
+            bottles[1].isBeingUsed = true;
         }
-        if (Input.GetKeyUp(KeyCode.B))
+        else if (Input.GetKey(KeyCode.B))
         {
-            currentIngredients.Add(Ingredients.Blue);
+            //currentIngredients.Add(Ingredients.Blue);
+            bottles[2].isBeingUsed = true;
         }
-        if (Input.GetKeyUp(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W))
         {
-            currentIngredients.Add(Ingredients.White);
+            //currentIngredients.Add(Ingredients.White);
+            bottles[3].isBeingUsed = true;
+        }
+        else
+        {
+            for (int i = 0; i < bottles.Count; i++)
+            {
+                bottles[i].isBeingUsed = false;
+            }
+
         }
     }
 
