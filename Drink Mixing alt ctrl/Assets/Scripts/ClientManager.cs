@@ -68,8 +68,9 @@ public class ClientManager : MonoBehaviour
 
             Client clientScript = newCLient.GetComponent<Client>();
 
-            //clientScript.mySpawn = spawn;
-            //clientScript = this;
+            clientScript.mySpawn = spawn;
+            clientScript.clientManager = this;
+            clientScript.coaster = spawn.coaster;
 
             currentClients.Add(newCLient.GetComponent<Client>());
             spawn.isOccupied = true;
