@@ -22,13 +22,15 @@ public class Client : MonoBehaviour
 
     private bool triggerd = false;
 
-    //public Spawner mySpawn;
-    // public ClientManager clientManager;
+    public Spawner mySpawn;
+    public ClientManager clientManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //WHYYYYYYYYYYYYY
         //Debug.Log(Manager.Instance.NewMixture(3));
+
         currentWaitTime = maxWaitTime;
         isAngry = false;
         isTipping = true;
@@ -68,7 +70,7 @@ public class Client : MonoBehaviour
 
     private void clearUpSpot()
     {
-        //clientManager.FreeSpawn(mySpawn);
+        clientManager.FreeSpawn(mySpawn);
         Destroy(gameObject, 3f);
     }
 

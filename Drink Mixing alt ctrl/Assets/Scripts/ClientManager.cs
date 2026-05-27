@@ -40,13 +40,13 @@ public class ClientManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        runTime += Time.deltaTime;
+        if(currentClients.Count < 3)
+            runTime += Time.deltaTime;
         if (runTime >= cooldown)
         {
             spawnClient();
         }
-        */
+        
     }
 
     public void FreeSpawn(Spawner spawn)
@@ -54,7 +54,7 @@ public class ClientManager : MonoBehaviour
         spawn.isOccupied = false;
     }
 
-
+    
     private void spawnClient()
     {
         if(currentClients.Count < 3)
@@ -65,6 +65,7 @@ public class ClientManager : MonoBehaviour
             //rn using 2 justfot the sake of something
             GameObject newCLient = Instantiate(clientPrefab, spawn.point.position, quaternion.identity);
 
+
             Client clientScript = newCLient.GetComponent<Client>();
 
             //clientScript.mySpawn = spawn;
@@ -73,8 +74,6 @@ public class ClientManager : MonoBehaviour
             currentClients.Add(newCLient.GetComponent<Client>());
             spawn.isOccupied = true;
         }
-
-
     }
-
+    
 }
