@@ -25,6 +25,7 @@ public class Client : MonoBehaviour
     public Spawner mySpawn;
     public ClientManager clientManager;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
