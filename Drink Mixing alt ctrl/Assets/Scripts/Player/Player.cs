@@ -25,6 +25,13 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isHoldingButton;
     [SerializeField] private int previousButtonState;
 
+    [SerializeField] private Manager manager;
+
+    private void Start()
+    {
+        
+    }
+
     private void Update()
     {
         //POURING
@@ -39,6 +46,10 @@ public class Player : MonoBehaviour
         }
         refilBottle();
         buttonManager();
+
+
+        //debug methods
+        debugAddToCup();
     }
 
     //this is to select the bottle for pouring
@@ -131,7 +142,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("send drink");
                 //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
-                Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
+                //Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
                 currentButtonHoldTime = 0;
             }
            
@@ -183,6 +194,26 @@ public class Player : MonoBehaviour
     }
 
 
+
+    private void debugAddToCup()
+    {
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            currentIngredients.Add(Ingredients.Red);
+        }
+        if (Input.GetKeyUp(KeyCode.G))
+        {
+            currentIngredients.Add(Ingredients.Green);
+        }
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            currentIngredients.Add(Ingredients.Blue);
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            currentIngredients.Add(Ingredients.White);
+        }
+    }
 
 
 }

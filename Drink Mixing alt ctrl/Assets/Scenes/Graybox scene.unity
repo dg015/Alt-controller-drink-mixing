@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5a6dcfb4310254b8bfe33577700696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimerLimit: 5
+  gameTimerLimit: 300
   isGameover: 0
   timerText: {fileID: 268511621}
   endGameUI: {fileID: 1332545849}
@@ -2250,7 +2250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1332545850
 RectTransform:
   m_ObjectHideFlags: 0

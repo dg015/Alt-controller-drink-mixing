@@ -19,7 +19,10 @@ public class ArduinoDataReceiver : MonoBehaviour
     public string pouringRFIDData;
     public string refilRFIDData;
 
-
+    //to ignore the first few junk frames
+    private bool isInitialized = false;
+    private float initTimer = 0f;
+    [SerializeField] private float initTime = 2f;
 
     private void Awake()
     {
@@ -29,13 +32,30 @@ public class ArduinoDataReceiver : MonoBehaviour
     {
         serial.Open();
         serial.ReadTimeout = 100;
+        buttonData = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //little warmup for the arduino
+        initTimer += Time.deltaTime;
+
+        if (!isInitialized && initTimer < initTime)
+        {
+            return; 
+        }
+
+        if (!isInitialized)
+        {
+            isInitialized = true;
+            Debug.Log("Arduino warmup complete");
+        }
+
         Debug.Log("running");
         readArduinoData();
+
+
     }
 
     //MISSING COLOUR SENSOR
