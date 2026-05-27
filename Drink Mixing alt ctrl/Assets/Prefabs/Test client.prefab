@@ -132,6 +132,8 @@ MonoBehaviour:
   coaster: 1
   score: 10
   tip: 5
+  mySpawn: {fileID: 0}
+  clientManager: {fileID: 0}
 --- !u!1001 &6248549148719576043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -159,6 +161,10 @@ PrefabInstance:
     - target: {fileID: 1136786545404148066, guid: 121250c361df08344b460316bc0eb306, type: 3}
       propertyPath: m_Name
       value: Client canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399091723726460645, guid: 121250c361df08344b460316bc0eb306, type: 3}
+      propertyPath: m_Name
+      value: Ingridient 2
       objectReference: {fileID: 0}
     - target: {fileID: 2009343595288587880, guid: 121250c361df08344b460316bc0eb306, type: 3}
       propertyPath: m_AnchorMax.y
@@ -276,6 +282,14 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3320014331154543906, guid: 121250c361df08344b460316bc0eb306, type: 3}
+      propertyPath: m_Name
+      value: Ingridient 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285472306057973367, guid: 121250c361df08344b460316bc0eb306, type: 3}
+      propertyPath: m_Name
+      value: Ingridient 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7310205923303523678, guid: 121250c361df08344b460316bc0eb306, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -295,8 +309,78 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1394080102016448837, guid: 121250c361df08344b460316bc0eb306, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 676489013699785886}
   m_SourcePrefab: {fileID: 100100000, guid: 121250c361df08344b460316bc0eb306, type: 3}
+--- !u!114 &2119001390934256617 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5467223514808195074, guid: 121250c361df08344b460316bc0eb306, type: 3}
+  m_PrefabInstance: {fileID: 6248549148719576043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2127627033067078781 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5418278796283656086, guid: 121250c361df08344b460316bc0eb306, type: 3}
+  m_PrefabInstance: {fileID: 6248549148719576043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3969835936310504833 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7034902548664409706, guid: 121250c361df08344b460316bc0eb306, type: 3}
+  m_PrefabInstance: {fileID: 6248549148719576043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4361914949434688320 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7656098274205151403, guid: 121250c361df08344b460316bc0eb306, type: 3}
+  m_PrefabInstance: {fileID: 6248549148719576043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5039398443724737198 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1394080102016448837, guid: 121250c361df08344b460316bc0eb306, type: 3}
+  m_PrefabInstance: {fileID: 6248549148719576043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &676489013699785886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5039398443724737198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb14e61486c9e44e971432a6d8d8df5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  client: {fileID: 131206403128598267}
+  UIImages:
+  - {fileID: 2119001390934256617}
+  - {fileID: 2127627033067078781}
+  - {fileID: 4361914949434688320}
+  - {fileID: 3969835936310504833}
 --- !u!224 &8207475489894991729 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2833187619982374042, guid: 121250c361df08344b460316bc0eb306, type: 3}
