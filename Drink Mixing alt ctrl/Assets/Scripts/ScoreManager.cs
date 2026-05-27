@@ -16,10 +16,12 @@ public class ScoreManager : MonoBehaviour
     [Header("end of game UI")]
     [SerializeField] private TextMeshProUGUI endOfGameText;
 
+    public static ScoreManager Instance;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class ScoreManager : MonoBehaviour
     public void addScore(int scoreToAdd)
     {
         score += scoreToAdd;
+        Debug.Log(score);
     }
 
 }

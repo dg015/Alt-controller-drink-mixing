@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int previousButtonState;
 
     [SerializeField] private Manager manager;
+    [SerializeField] private ClientManager clientManager;
 
     private void Start()
     {
@@ -143,11 +144,51 @@ public class Player : MonoBehaviour
                 Debug.Log("send drink");
                 //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
                 //Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
+                checkClientRecipe();
                 currentButtonHoldTime = 0;
             }
            
         }
         previousButtonState = currentButtonState;
+    }
+
+
+    private void checkClientRecipe()
+    {
+        List <Client> clientList = clientManager.currentClients;
+        returnSelectedCoaster();
+        for (int i  = 0; i < clientList.Count; i++)
+        {
+            Debug.Log(clientList[i].coaster);
+            if(returnSelectedCoaster() == clientList[i].coaster)
+            {
+                //Debug.Log(clientList[i].order);
+                
+                if(compareLists(currentIngredients, clientList[i].order) == true)
+                {
+                    clientList[i].hasBeenServed = true;
+                }
+
+            }
+        }
+    }
+
+    private bool compareLists(List<Ingredients> playerOrder, List<Ingredients> clientOrder)
+    {
+        //check if same size
+        if (playerOrder.Count != clientOrder.Count)
+        {
+            return false;
+        }
+        for (int i = 0; i < playerOrder.Count; i++)
+        {
+            if (playerOrder[i] != clientOrder[i])
+            {
+                return false;
+            }
+            
+        }
+        return true;
     }
 
     /// <summary>

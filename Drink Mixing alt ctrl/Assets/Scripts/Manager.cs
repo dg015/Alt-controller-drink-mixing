@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-public enum Ingredients { Red, Green, Blue, White, Shake }
+public enum Ingredients { Red, Green, Blue, White } //, Shake }
 public class Manager : MonoBehaviour
 {
     [SerializeField] private Player player;
@@ -83,7 +83,7 @@ public class Manager : MonoBehaviour
     /// </summary>
     /// <param name="steps">The amount of ingredients to include in the mixture</param>
     /// <returns>The list of ingredients needed for the recipe</returns>
-    private List<Ingredients> NewMixture(int steps)
+    public List<Ingredients> NewMixture(int steps)
     {
         List<Ingredients> mixture = new List<Ingredients>();
 
@@ -93,8 +93,14 @@ public class Manager : MonoBehaviour
             List<Ingredients> options = new List<Ingredients>();
             foreach (Ingredients ing in Enum.GetValues(typeof(Ingredients))) options.Add(ing);
 
+
+            //disablign this for now since we might not have shake
             // Cannot get Shake as one of first 2 options
-            if (i <= 1) options.Remove(Ingredients.Shake);
+          // if (i <= 1) options.Remove(Ingredients.Shake);
+
+
+
+
             // Cannot get same option twice in a row
             if (i > 0)
             {

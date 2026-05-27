@@ -6,7 +6,7 @@ using Unity.Mathematics;
 
 public class ClientManager : MonoBehaviour
 {
-    [SerializeField] private List<Client> currentClients;
+    [SerializeField] public List<Client> currentClients;
 
     [SerializeField] private float clientSpawnTime;
 
@@ -40,11 +40,13 @@ public class ClientManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         runTime += Time.deltaTime;
         if (runTime >= cooldown)
         {
             spawnClient();
         }
+        */
     }
 
     public void FreeSpawn(Spawner spawn)
@@ -62,8 +64,6 @@ public class ClientManager : MonoBehaviour
             runTime = 0;
             //rn using 2 justfot the sake of something
             GameObject newCLient = Instantiate(clientPrefab, spawn.point.position, quaternion.identity);
-
-          
 
             Client clientScript = newCLient.GetComponent<Client>();
 
