@@ -9,10 +9,11 @@ public class Bottles : MonoBehaviour
     [Header("Pouring")]
     [SerializeField] public float timeToPour;
     [SerializeField] public float currentPourTime;
+    [SerializeField] private float fillReduceBonus;
 
     [Header("Bottle capacity")]
     [SerializeField] public float fillPercentage = 100;
-    [SerializeField] private float maxPercentage = 100;
+    [SerializeField] public float maxPercentage = 100;
     [SerializeField] private int fillSpeed;
 
     [Header("Booleans")]
@@ -54,7 +55,7 @@ public class Bottles : MonoBehaviour
 
         if( currentPourTime >= timeToPour)
         {
-            decreasePercentage(currentPourTime);
+            decreasePercentage(currentPourTime + fillReduceBonus);
             m_playerScript.currentIngredients.Add(bottleIngridient);
  
             currentPourTime = 0;

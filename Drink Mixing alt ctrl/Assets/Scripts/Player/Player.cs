@@ -39,9 +39,11 @@ public class Player : MonoBehaviour
     private void Update()
     {
         pourBottle();
-        
 
-        refilBottle();
+
+        //refilBottle();
+        refilForVideo();
+
         buttonManager();
 
 
@@ -227,6 +229,25 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void refilForVideo()
+    {
+        if (ArduinoDataReceiver.Instance.tapData == 1)
+        {
+            for (int i = 0; i < bottles.Count; i++)
+            {
+                bottles[i].isBeingFilled = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < bottles.Count; i++)
+            {
+                bottles[i].isBeingFilled = false;
+            }
+        }    
+
     }
 
     private void pourBottle()
