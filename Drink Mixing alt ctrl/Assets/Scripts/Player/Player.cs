@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Manager manager;
     [SerializeField] private ClientManager clientManager;
 
+
+    [SerializeField] playerCupUIUpdater cupUI;
+
     private void Start()
     {
         
@@ -35,19 +38,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        //POURING
-        //get the new RFID FOR POURING
-        string currentPourBottleRFID = ArduinoDataReceiver.Instance.pouringRFIDData;
-        //compare to previous RFID so it updates only if its a different bottle
-        /*
-        if (currentPourBottleRFID != previousBottleID)
-        {
-            //select the new bottle
-            selectBottleByRFID(currentPourBottleRFID);
-            previousBottleID = currentPourBottleRFID;
-        }
-        */
         pourBottle();
+        
+
         refilBottle();
         buttonManager();
 
@@ -94,6 +87,7 @@ public class Player : MonoBehaviour
         }
     }
     */
+
 
 
 
@@ -144,7 +138,7 @@ public class Player : MonoBehaviour
             if (currentButtonHoldTime >= trashButtonHoldTime)
             {
                 Debug.Log("trash drink");
-                trashDrink();
+                currentIngredients.Clear();
                 currentButtonHoldTime = 0;
             }
             //otherwise send drink
@@ -155,6 +149,7 @@ public class Player : MonoBehaviour
                 //Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
                 checkClientRecipe();
                 currentButtonHoldTime = 0;
+                currentIngredients.Clear();
             }
         }
         //reset stat
@@ -236,27 +231,29 @@ public class Player : MonoBehaviour
 
     private void pourBottle()
     {
-        string currentPourBottle = ArduinoDataReceiver.Instance.refilRFIDData;
+        string currentPourBottle = ArduinoDataReceiver.Instance.pouringRFIDData;
+        //Debug.Log(currentPourBottle);
+
         for (int i = 0; i < bottles.Count; i++)
         {
             //loop through all bottles and check if the RFID tag matches the bottle
-            if (currentPourBottle == bottles[i].PouringRFIDTag)
+            if (currentPourBottle == bottles[i].PouringRFIDTag )
             {
+                Debug.Log(currentPourBottle);
                 //enable pouring of the current bottle
                 bottles[i].isBeingUsed = true;
+                cupUI.updateBarColour(bottles[i].bottleIngridient);
+                cupUI.updateBarProgress(bottles[i].currentPourTime, bottles[i].timeToPour);
+
             }
-            else
+            else if (currentPourBottle == "NONE")
             {
                 bottles[i].isBeingUsed = false;
+                bottles[i].currentPourTime = 0;
             }
         }
-    }
 
-    private void trashDrink()
-    {
-        currentIngredients.Clear();
     }
-
 
     private void debugAddToCup()
     {
@@ -279,14 +276,6 @@ public class Player : MonoBehaviour
         {
             //currentIngredients.Add(Ingredients.White);
             bottles[3].isBeingUsed = true;
-        }
-        else
-        {
-            for (int i = 0; i < bottles.Count; i++)
-            {
-                bottles[i].isBeingUsed = false;
-            }
-
         }
     }
 

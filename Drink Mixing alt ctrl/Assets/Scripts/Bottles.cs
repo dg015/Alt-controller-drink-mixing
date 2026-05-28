@@ -7,8 +7,8 @@ public class Bottles : MonoBehaviour
     [SerializeField] public Ingredients bottleIngridient;
 
     [Header("Pouring")]
-    [SerializeField] private float timeToPour;
-    [SerializeField] private float currentPourTime;
+    [SerializeField] public float timeToPour;
+    [SerializeField] public float currentPourTime;
 
     [Header("Bottle capacity")]
     [SerializeField] public float fillPercentage = 100;
@@ -39,7 +39,11 @@ public class Bottles : MonoBehaviour
         {
             pourTimer();
         }
-
+        //to make sure no over pour
+        if (m_playerScript.currentIngredients.Count >= 4)
+        {
+            currentPourTime = 0;
+        }
         fillBottle();
     }
 
@@ -51,8 +55,8 @@ public class Bottles : MonoBehaviour
         if( currentPourTime >= timeToPour)
         {
             decreasePercentage(currentPourTime);
-            
             m_playerScript.currentIngredients.Add(bottleIngridient);
+ 
             currentPourTime = 0;
         }
     }

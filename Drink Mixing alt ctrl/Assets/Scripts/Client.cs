@@ -6,11 +6,11 @@ public class Client : MonoBehaviour
 {
     [SerializeField] public List<Ingredients> order;
 
-    [SerializeField] private int maxWaitTime;
-    [SerializeField] private int maxTipWaiTime;
+    [SerializeField] public float maxWaitTime;
+    [SerializeField] private float maxTipWaiTime;
     [SerializeField] private bool isTipping = true;
 
-    [SerializeField] private float currentWaitTime;
+    [SerializeField] public float currentWaitTime;
     [SerializeField] private bool isAngry = false;
     [SerializeField] public bool hasBeenServed = false;
 
@@ -29,8 +29,7 @@ public class Client : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //WHYYYYYYYYYYYYY
-        //Debug.Log(Manager.Instance.NewMixture(3));
+        order = Manager.Instance.NewMixture(4);
 
         currentWaitTime = maxWaitTime;
         isAngry = false;
