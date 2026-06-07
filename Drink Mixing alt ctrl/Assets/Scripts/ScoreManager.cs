@@ -27,24 +27,25 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        updateScoreText(textScore);
-        updateEndGameText();
+        UpdateScoreText(textScore);
+        UpdateEndGameText();
     }
 
-    private void updateScoreText(TextMeshProUGUI text)
+    private void UpdateScoreText(TextMeshProUGUI text)
     {
         text.text = "SCORE: " + score;
     }
 
-    private void updateEndGameText()
+    private void UpdateEndGameText()
     {
         endOfGameText.text = "Your final score is: " + score;
 
     }
 
-    public void addScore(int scoreToAdd)
+    public void AddScore(int scoreToAdd)
     {
         score += scoreToAdd;
+        if (score < 0) score = 0;
         Debug.Log(score);
     }
 

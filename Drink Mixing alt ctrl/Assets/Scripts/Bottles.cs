@@ -4,7 +4,7 @@ using UnityEngine;
 public class Bottles : MonoBehaviour
 {
     [Header("Type")]
-    [SerializeField] public Ingredients bottleIngridient;
+    [SerializeField] public Ingredients bottleIngredient;
 
     [Header("Pouring")]
     [SerializeField] public float timeToPour;
@@ -38,36 +38,36 @@ public class Bottles : MonoBehaviour
     {
         if (isBeingUsed)
         {
-            pourTimer();
+            PourTimer();
         }
         //to make sure no over pour
         if (m_playerScript.currentIngredients.Count >= 4)
         {
             currentPourTime = 0;
         }
-        fillBottle();
+        FillBottle();
     }
 
 
-    public void pourTimer()
+    public void PourTimer()
     {
         currentPourTime += Time.deltaTime;
 
         if( currentPourTime >= timeToPour)
         {
-            decreasePercentage(currentPourTime + fillReduceBonus);
-            m_playerScript.currentIngredients.Add(bottleIngridient);
+            DecreasePercentage(currentPourTime + fillReduceBonus);
+            m_playerScript.currentIngredients.Add(bottleIngredient);
  
             currentPourTime = 0;
         }
     }
 
-    private void decreasePercentage(float ammount)
+    private void DecreasePercentage(float ammount)
     {
         fillPercentage -= ammount;
     }
 
-    private void fillBottle()
+    private void FillBottle()
     {
         if (isBeingFilled && fillPercentage < maxPercentage)
         {

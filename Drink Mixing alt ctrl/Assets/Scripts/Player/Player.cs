@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -31,24 +29,20 @@ public class Player : MonoBehaviour
 
     [SerializeField] playerCupUIUpdater cupUI;
 
-    private void Start()
-    {
-        
-    }
 
     private void Update()
     {
-        pourBottle();
+        PourBottle();
 
 
         //refilBottle();
-        refilForVideo();
+        RefillForVideo();
 
-        buttonManager();
+        ButtonManager();
 
 
         //debug methods
-        debugAddToCup();
+        DebugAddToCup();
     }
 
     /*
@@ -90,30 +84,38 @@ public class Player : MonoBehaviour
     }
     */
 
-
-
-
     //checks the LUX value from each coaster and compares it to see which is below the treshhold and returns the number of the coaster as an int
-    private int returnSelectedCoaster()
-    {            
-        //return coaster 1
-        if (ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger)
+    private int ReturnSelectedCoaster()
+    {
+        if (ArduinoDataReceiver.Instance.foundPort)
         {
-            return 1;
+            //return coaster 1
+            if (ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger)
+            {
+                return 1;
+            }
+            //return coaster 2
+            else if (ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger)
+            {
+                return 2;
+            }
+            //return coaster 3
+            else if (ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger)
+            {
+                return 3;
+            }
+            else // return 0 since there are no coaster with the id 0
+            {
+                return 0;
+            } 
         }
-        //return coaster 2
-        else if (ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger)
+        // For debugging or when playing without arduino
+        else
         {
-            return 2;
-        }
-        //return coaster 3
-        else if (ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger)
-        {
-            return 3;
-        }
-        else // return 0 since there are no coaster with the id 0
-        {
-            return 0;
+            if (Input.GetKey(KeyCode.Alpha1)) return 1;
+            else if (Input.GetKey(KeyCode.Alpha2)) return 2;
+            else if (Input.GetKey(KeyCode.Alpha3)) return 3;
+            else return 0;
         }
     }
 
@@ -125,9 +127,19 @@ public class Player : MonoBehaviour
     ///     Short hold -> send drink
     /// if the previous state was 0 then do nothing so it doesnt trigger every frame
     /// </summary>
-    private void buttonManager()
+    private void ButtonManager()
     {
         int currentButtonState = ArduinoDataReceiver.Instance.buttonData;
+
+        // For debugging purposes, use spacebar to simulate bell button
+        if (!ArduinoDataReceiver.Instance.foundPort)
+        {
+            if (Input.GetKey(KeyCode.Space))
+                currentButtonState = 0;
+            else
+                currentButtonState = 1;
+        }
+
         if (currentButtonState == 0)
         {
             //check how long the button has been held for
@@ -149,7 +161,7 @@ public class Player : MonoBehaviour
                 Debug.Log("send drink");
                 //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
                 //Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
-                checkClientRecipe();
+                CheckClientRecipe();
                 currentButtonHoldTime = 0;
                 currentIngredients.Clear();
             }
@@ -160,24 +172,24 @@ public class Player : MonoBehaviour
 
 
     //check clients recipe
-    private void checkClientRecipe()
+    private void CheckClientRecipe()
     {
         //get the current client list
         List <Client> clientList = clientManager.currentClients;
 
         //get which coaster is selected
-        returnSelectedCoaster();
+        ReturnSelectedCoaster();
 
         //run through the list
         for (int i  = 0; i < clientList.Count; i++)
         {
             //Debug.Log(clientList[i].coaster);
             //check which client contains the matchin coaster
-            if(returnSelectedCoaster() == clientList[i].coaster)
+            if(ReturnSelectedCoaster() == clientList[i].coaster)
             {
                 //Debug.Log(clientList[i].order);
                 //compare the list of the client with the matching coaster
-                if(compareLists(currentIngredients, clientList[i].order) == true)
+                if(CompareLists(currentIngredients, clientList[i].order) == true)
                 {
                     //if it matches set client as served
                     clientList[i].hasBeenServed = true;
@@ -187,7 +199,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool compareLists(List<Ingredients> playerOrder, List<Ingredients> clientOrder)
+    private bool CompareLists(List<Ingredients> playerOrder, List<Ingredients> clientOrder)
     {
         //check if same size
         if (playerOrder.Count != clientOrder.Count)
@@ -210,7 +222,7 @@ public class Player : MonoBehaviour
     /// Grab the refil bottle RFID data
     /// compare the RFID tag with all the bottles and if it matches then set that bottle as refilling otherwise set as not being refilled
     /// </summary>
-    private void refilBottle()
+    private void RefillBottle()
     {
         string currentRefilBottle = ArduinoDataReceiver.Instance.refilRFIDData;
         if (ArduinoDataReceiver.Instance.tapData == 1)
@@ -231,7 +243,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void refilForVideo()
+    private void RefillForVideo()
     {
         if (ArduinoDataReceiver.Instance.tapData == 1)
         {
@@ -250,7 +262,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void pourBottle()
+    private void PourBottle()
     {
         string currentPourBottle = ArduinoDataReceiver.Instance.pouringRFIDData;
         //Debug.Log(currentPourBottle);
@@ -263,40 +275,72 @@ public class Player : MonoBehaviour
                 Debug.Log(currentPourBottle);
                 //enable pouring of the current bottle
                 bottles[i].isBeingUsed = true;
-                cupUI.updateBarColour(bottles[i].bottleIngridient);
-                cupUI.updateBarProgress(bottles[i].currentPourTime, bottles[i].timeToPour);
+                cupUI.UpdateBarColour(bottles[i].bottleIngredient);
+                cupUI.UpdateBarProgress(bottles[i].currentPourTime, bottles[i].timeToPour);
 
             }
             else if (currentPourBottle == "NONE")
             {
                 bottles[i].isBeingUsed = false;
-                bottles[i].currentPourTime = 0;
+
+                if (bottles[i].currentPourTime > 0f)
+                {
+                    bottles[i].currentPourTime -= 2 * Time.deltaTime;
+                    cupUI.UpdateBarProgress(bottles[i].currentPourTime, bottles[i].timeToPour);
+                }
+                else
+                    bottles[i].currentPourTime = 0f;
             }
         }
 
     }
 
-    private void debugAddToCup()
+    private void DebugAddToCup()
     {
         if (Input.GetKey(KeyCode.R))
         {
             //currentIngredients.Add(Ingredients.Red);
             bottles[0].isBeingUsed = true;
+            cupUI.UpdateBarColour(bottles[0].bottleIngredient);
+            cupUI.UpdateBarProgress(bottles[0].currentPourTime, bottles[0].timeToPour);
         }
         else if (Input.GetKey(KeyCode.G))
         {
             //currentIngredients.Add(Ingredients.Green);
             bottles[1].isBeingUsed = true;
+            cupUI.UpdateBarColour(bottles[1].bottleIngredient);
+            cupUI.UpdateBarProgress(bottles[1].currentPourTime, bottles[1].timeToPour);
         }
         else if (Input.GetKey(KeyCode.B))
         {
             //currentIngredients.Add(Ingredients.Blue);
             bottles[2].isBeingUsed = true;
+            cupUI.UpdateBarColour(bottles[2].bottleIngredient);
+            cupUI.UpdateBarProgress(bottles[2].currentPourTime, bottles[2].timeToPour);
         }
         else if (Input.GetKey(KeyCode.W))
         {
             //currentIngredients.Add(Ingredients.White);
             bottles[3].isBeingUsed = true;
+            cupUI.UpdateBarColour(bottles[3].bottleIngredient);
+            cupUI.UpdateBarProgress(bottles[3].currentPourTime, bottles[3].timeToPour);
+        }
+        else
+        {
+            if (!ArduinoDataReceiver.Instance.foundPort)
+            {
+                foreach (Bottles bot in bottles)
+                {
+                    bot.isBeingUsed = false;
+                    if (bot.currentPourTime > 0f)
+                    {
+                        bot.currentPourTime -= Time.deltaTime;
+                        cupUI.UpdateBarProgress(bot.currentPourTime, bot.timeToPour);
+                    }
+                    else
+                        bot.currentPourTime = 0f;
+                }
+            }
         }
     }
 

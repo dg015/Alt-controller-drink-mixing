@@ -6,7 +6,7 @@ public class ArduinoDataReceiver : MonoBehaviour
     private SerialPort serial = new SerialPort("COM5", 115200);
 
     public static ArduinoDataReceiver Instance;
-
+    
     [Header("Coasters")]
     public float coaster1Data;
     public float coaster2Data;
@@ -20,6 +20,8 @@ public class ArduinoDataReceiver : MonoBehaviour
     public string pouringRFIDData;
     //bottom of the bottle
     public string refilRFIDData;
+
+    public bool foundPort = false;
 
     //to ignore the first few junk frames
     private bool isInitialized = false;
@@ -100,7 +102,6 @@ public class ArduinoDataReceiver : MonoBehaviour
             int.TryParse(values[4], out tapData);
 
             pouringRFIDData = values[5];
-
         }
         //if timeout just timeout
         catch (System.TimeoutException)
@@ -111,6 +112,8 @@ public class ArduinoDataReceiver : MonoBehaviour
         {
             Debug.LogWarning("serial error :" + e.Message);
         }
+
+        foundPort = true;
     }
     //close serial door on close to stop it from future errors
     private void OnApplicationQuit()

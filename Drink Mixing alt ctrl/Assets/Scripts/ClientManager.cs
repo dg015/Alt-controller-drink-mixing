@@ -1,7 +1,5 @@
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.Mathematics;
 
 
 public class ClientManager : MonoBehaviour
@@ -18,14 +16,6 @@ public class ClientManager : MonoBehaviour
     [SerializeField] private float runTime;
 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-
     private Spawner GetFreeSpawn()
     {
         foreach (var sp in spawnPoints)
@@ -40,24 +30,24 @@ public class ClientManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        removeEmptySlots();
+        RemoveEmptySlots();
         if (currentClients.Count < 3)
             runTime += Time.deltaTime;
         if (runTime >= cooldown)
         {
-            spawnClient();
+            SpawnClient();
         }
         
     }
 
-    public void FreeSpawn(Spawner spawn)
+    public void FreeSpawn(Spawner spawn, bool isAngry = false)
     {
         spawn.isOccupied = false;
-        
+        if (isAngry) ScoreManager.Instance.AddScore(-1);
     }
 
 
-    private void removeEmptySlots()
+    private void RemoveEmptySlots()
     {
         //go through list
         for (int i = 0; i < currentClients.Count; ++i)
@@ -71,7 +61,7 @@ public class ClientManager : MonoBehaviour
         }
     }
     
-    private void spawnClient()
+    private void SpawnClient()
     {
         if(currentClients.Count < 3)
         {
@@ -79,8 +69,8 @@ public class ClientManager : MonoBehaviour
 
             runTime = 0;
             //rn using 2 justfot the sake of something
-            GameObject newCLient = Instantiate(clientPrefab, spawn.point.position, quaternion.identity);
-
+            GameObject newCLient = Instantiate(clientPrefab);
+            newCLient.transform.position = spawn.point.position;
 
             Client clientScript = newCLient.GetComponent<Client>();
 

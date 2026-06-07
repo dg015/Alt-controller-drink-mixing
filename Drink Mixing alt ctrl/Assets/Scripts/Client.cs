@@ -42,18 +42,18 @@ public class Client : MonoBehaviour
     void Update()
     {
         //start countdown
-        clientWait();
+        ClientWait();
         if(hasBeenServed && !triggerd)
         {
             triggerd = true;
-            clearUpSpot();
+            ClearUpSpot();
             if(isTipping)
-                ScoreManager.Instance.addScore(tip);
-            ScoreManager.Instance.addScore(score);
+                ScoreManager.Instance.AddScore(tip);
+            ScoreManager.Instance.AddScore(score);
         }
     }
 
-    private void clientWait()
+    private void ClientWait()
     {
         currentWaitTime -= Time.deltaTime;
         if (currentWaitTime < maxTipWaiTime)
@@ -64,11 +64,11 @@ public class Client : MonoBehaviour
         {
             Debug.Log("angry guy");
             isAngry = true;
-            clearUpSpot();
+            ClearUpSpot();
         }
     }
 
-    private void clearUpSpot()
+    private void ClearUpSpot()
     {
         clientManager.FreeSpawn(mySpawn);
         Destroy(gameObject, 3f);

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 public class playerCupUIUpdater : MonoBehaviour
@@ -12,19 +11,13 @@ public class playerCupUIUpdater : MonoBehaviour
 
     [SerializeField] private Color lightGray;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        updateUi();
+        UpdateUi();
     }
 
-    public void updateBarColour(Ingredients currentIngridient)
+    public void UpdateBarColour(Ingredients currentIngridient)
     {
         if (currentIngridient == Ingredients.Red)
         {
@@ -44,13 +37,13 @@ public class playerCupUIUpdater : MonoBehaviour
         }
     }
 
-    public void updateBarProgress(float currentPourTime, float timeToPour)
+    public void UpdateBarProgress(float currentPourTime, float timeToPour)
     {
         fillBar.fillAmount = currentPourTime / timeToPour;
 
     }
 
-    private void updateUi()
+    private void UpdateUi()
     {
         if (playerScript.currentIngredients.Count == 0)
         {
