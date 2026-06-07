@@ -9,13 +9,13 @@ public class Client : MonoBehaviour
     [SerializeField] public float maxWaitTime;
     [SerializeField] private float maxTipWaiTime;
     [SerializeField] private bool isTipping = true;
-
+    [SerializeField] private float despawnTime;
     [SerializeField] public float currentWaitTime;
     [SerializeField] private bool isAngry = false;
     [SerializeField] public bool hasBeenServed = false;
 
     //from 1 to 3
-    [SerializeField] public int coaster;
+    [SerializeField][Range(1,3)] public int coaster;
 
     [SerializeField] private int score;
     [SerializeField] private int tip;
@@ -24,7 +24,7 @@ public class Client : MonoBehaviour
 
     public Spawner mySpawn;
     public ClientManager clientManager;
-
+    private Coroutine clearingSpot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -70,10 +70,29 @@ public class Client : MonoBehaviour
 
     private void ClearUpSpot()
     {
-        clientManager.FreeSpawn(mySpawn);
-        Destroy(gameObject, 3f);
+        clearingSpot ??= StartCoroutine(ClearingSpot());
     }
+    private IEnumerator ClearingSpot()
+    {
+        float timer = 0f;
+        MeshRenderer mr = GetComponent<MeshRenderer>();
+        Material newMat = mr.material;
+        Color originColor = mr.material.color;
 
+        while (timer < despawnTime)
+        {
+            if (isAngry)
+                newMat.color = Color.Lerp(originColor, Color.red, timer / despawnTime);
+            else
+                newMat.color = Color.Lerp(originColor, Color.cyan, timer / despawnTime);
+            mr.material = newMat;
+
+            timer += Time.deltaTime;
+            yield return null; 
+        }
+        clientManager.FreeSpawn(mySpawn);
+        Destroy(gameObject);
+    }
 
     /*
     private void pickRandomIngridient()

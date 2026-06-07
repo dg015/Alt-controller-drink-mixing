@@ -89,22 +89,28 @@ public class Player : MonoBehaviour
     {
         if (ArduinoDataReceiver.Instance.foundPort)
         {
+            // Returns -1 if no coasters are pressed
+            if (!(ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger) && !(ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger) && !(ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger))
+            {
+                return - 1;
+            }
             //return coaster 1
-            if (ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger)
+            else if ((ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger) && !(ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger) && !(ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger))
             {
                 return 1;
             }
             //return coaster 2
-            else if (ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger)
+            else if ((ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger) && !(ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger) && !(ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger))
             {
                 return 2;
             }
             //return coaster 3
-            else if (ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger)
+            else if ((ArduinoDataReceiver.Instance.coaster3Data <= luxValueTrigger) && !(ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger) && !(ArduinoDataReceiver.Instance.coaster2Data <= luxValueTrigger))
             {
                 return 3;
             }
-            else // return 0 since there are no coaster with the id 0
+            // return 0 if multiple coasters are pressed since there are no coaster with the id 0
+            else
             {
                 return 0;
             } 
@@ -112,9 +118,10 @@ public class Player : MonoBehaviour
         // For debugging or when playing without arduino
         else
         {
-            if (Input.GetKey(KeyCode.Alpha1)) return 1;
-            else if (Input.GetKey(KeyCode.Alpha2)) return 2;
-            else if (Input.GetKey(KeyCode.Alpha3)) return 3;
+            if (!Input.GetKey(KeyCode.Alpha1) && !Input.GetKey(KeyCode.Alpha2) && !Input.GetKey(KeyCode.Alpha3)) return -1;
+            else if (Input.GetKey(KeyCode.Alpha1) && !Input.GetKey(KeyCode.Alpha2) && !Input.GetKey(KeyCode.Alpha3)) return 1;
+            else if (Input.GetKey(KeyCode.Alpha2) && !Input.GetKey(KeyCode.Alpha1) && !Input.GetKey(KeyCode.Alpha3)) return 2;
+            else if (Input.GetKey(KeyCode.Alpha3) && !Input.GetKey(KeyCode.Alpha1) && !Input.GetKey(KeyCode.Alpha2)) return 3;
             else return 0;
         }
     }
@@ -153,18 +160,28 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("trash drink");
                 currentIngredients.Clear();
-                currentButtonHoldTime = 0;
             }
             //otherwise send drink
             else if (currentButtonHoldTime <= trashButtonHoldTime)
             {
-                Debug.Log("send drink");
-                //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
-                //Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
-                CheckClientRecipe();
-                currentButtonHoldTime = 0;
-                currentIngredients.Clear();
+                if (ReturnSelectedCoaster() > 0)
+                {
+                    Debug.Log("send drink");
+                    //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
+                    //Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
+                    CheckClientRecipe();
+                    currentIngredients.Clear();
+                }
+                else if (ReturnSelectedCoaster() == -1)
+                {
+                    Debug.Log("No Coaster Selected!");
+                }
+                else
+                {
+                    Debug.Log("Too Many Coasters Selected!");
+                }
             }
+            currentButtonHoldTime = 0;
         }
         //reset stat
         previousButtonState = currentButtonState;
@@ -178,23 +195,24 @@ public class Player : MonoBehaviour
         List <Client> clientList = clientManager.currentClients;
 
         //get which coaster is selected
-        ReturnSelectedCoaster();
-
-        //run through the list
-        for (int i  = 0; i < clientList.Count; i++)
+        if (ReturnSelectedCoaster() > 0)
         {
-            //Debug.Log(clientList[i].coaster);
-            //check which client contains the matchin coaster
-            if(ReturnSelectedCoaster() == clientList[i].coaster)
+            //run through the list
+            for (int i = 0; i < clientList.Count; i++)
             {
-                //Debug.Log(clientList[i].order);
-                //compare the list of the client with the matching coaster
-                if(CompareLists(currentIngredients, clientList[i].order) == true)
+                //Debug.Log(clientList[i].coaster);
+                //check which client contains the matchin coaster
+                if (ReturnSelectedCoaster() == clientList[i].coaster)
                 {
-                    //if it matches set client as served
-                    clientList[i].hasBeenServed = true;
-                }
+                    //Debug.Log(clientList[i].order);
+                    //compare the list of the client with the matching coaster
+                    if (CompareLists(currentIngredients, clientList[i].order) == true)
+                    {
+                        //if it matches set client as served
+                        clientList[i].hasBeenServed = true;
+                    }
 
+                }
             }
         }
     }
@@ -285,7 +303,7 @@ public class Player : MonoBehaviour
 
                 if (bottles[i].currentPourTime > 0f)
                 {
-                    bottles[i].currentPourTime -= 2 * Time.deltaTime;
+                    bottles[i].currentPourTime -= 0.5f * Time.deltaTime;
                     cupUI.UpdateBarProgress(bottles[i].currentPourTime, bottles[i].timeToPour);
                 }
                 else

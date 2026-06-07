@@ -1,12 +1,18 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CoasterLights : MonoBehaviour
 {
-    [Range(1,3)]
+    [Range(0,3)]
     public int coaster;
     public float luxValueTrigger;
+    public float trashTimer;
+    public Material glowMat1;
+    public Material glowMat2;
+
     private MeshRenderer mr;
+    private float timer;
     private void Awake()
     {
         mr = GetComponent<MeshRenderer>();
@@ -18,6 +24,24 @@ public class CoasterLights : MonoBehaviour
         {
             switch (coaster)
             {
+                // Player is pressing the send/trash drink button
+                case 0:
+                    if (ArduinoDataReceiver.Instance.buttonData == 0)
+                    {
+                        mr.enabled = true;
+                        timer += Time.deltaTime;
+                        if (timer >= trashTimer)
+                            mr.material = glowMat2;
+                        else
+                            mr.material = glowMat1;
+                    }
+                    else
+                    {
+                        timer = 0f;
+                        mr.material = glowMat1;
+                        mr.enabled = false;
+                    }
+                    break;
                 case 1:
                     //coaster 1
                     if (ArduinoDataReceiver.Instance.coaster1Data <= luxValueTrigger)
@@ -49,6 +73,24 @@ public class CoasterLights : MonoBehaviour
         {
             switch (coaster)
             {
+                // Player is pressing the send/trash drink button
+                case 0:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        mr.enabled = true;
+                        timer += Time.deltaTime;
+                        if (timer >= trashTimer)
+                            mr.material = glowMat2;
+                        else
+                            mr.material = glowMat1;
+                    }
+                    else
+                    {
+                        timer = 0f;
+                        mr.material = glowMat1;
+                        mr.enabled = false;
+                    }
+                    break;
                 case 1:
                     //coaster 1
                     if (Input.GetKey(KeyCode.Alpha1))

@@ -166,6 +166,110 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &70468353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 70468354}
+  - component: {fileID: 70468357}
+  - component: {fileID: 70468356}
+  - component: {fileID: 70468355}
+  m_Layer: 0
+  m_Name: Coaster Glow (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &70468354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70468353}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.95, y: -0.11, z: -2.57}
+  m_LocalScale: {x: 1.3, y: 0.1, z: 1.3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1741921980}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &70468355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70468353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f416ba09459128429737f70e38458fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coaster: 0
+  luxValueTrigger: 0
+  trashTimer: 2
+  glowMat1: {fileID: 2100000, guid: d5b926de3edec9e4d80efbe17d263697, type: 2}
+  glowMat2: {fileID: 2100000, guid: 4eea545e64e30d54da9be78432c3fb46, type: 2}
+--- !u!23 &70468356
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70468353}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: d5b926de3edec9e4d80efbe17d263697, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &70468357
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70468353}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &80897798
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5a6dcfb4310254b8bfe33577700696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimerLimit: 100000
+  gameTimerLimit: 300
   isGameover: 0
   timerText: {fileID: 268511621}
   endGameUI: {fileID: 1332545849}
@@ -479,7 +583,6 @@ GameObject:
   - component: {fileID: 221585241}
   - component: {fileID: 221585240}
   - component: {fileID: 221585239}
-  - component: {fileID: 221585238}
   - component: {fileID: 221585237}
   m_Layer: 0
   m_Name: Bottle blue
@@ -501,40 +604,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleIngredient: 2
-  timeToPour: 2.5
+  timeToPour: 2
   currentPourTime: 0
   fillReduceBonus: 10
-  fillPercentage: 45
-  maxPercentage: 60
+  fillPercentage: 100
+  maxPercentage: 100
   fillSpeed: 2
   isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
   FillingRFIDTag: 
   PouringRFIDTag: 28C376
---- !u!136 &221585238
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 221585236}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &221585239
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -597,7 +677,7 @@ Transform:
   m_GameObject: {fileID: 221585236}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.59, y: -2.48, z: -8.45}
+  m_LocalPosition: {x: 18.7, y: -2.5, z: -8.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1211,6 +1291,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coaster: 2
   luxValueTrigger: 55
+  trashTimer: 0
+  glowMat1: {fileID: 2100000, guid: d5b926de3edec9e4d80efbe17d263697, type: 2}
+  glowMat2: {fileID: 2100000, guid: 66f9d5e6e894a924bb03c394efe25973, type: 2}
 --- !u!23 &678666115
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1290,7 +1373,6 @@ GameObject:
   - component: {fileID: 686062595}
   - component: {fileID: 686062594}
   - component: {fileID: 686062593}
-  - component: {fileID: 686062592}
   - component: {fileID: 686062591}
   m_Layer: 0
   m_Name: Bottle white
@@ -1312,40 +1394,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleIngredient: 3
-  timeToPour: 2.5
+  timeToPour: 2
   currentPourTime: 0
   fillReduceBonus: 10
-  fillPercentage: 45
-  maxPercentage: 60
+  fillPercentage: 100
+  maxPercentage: 100
   fillSpeed: 2
   isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
   FillingRFIDTag: 
   PouringRFIDTag: 2674BDB8
---- !u!136 &686062592
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686062590}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &686062593
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1408,7 +1467,7 @@ Transform:
   m_GameObject: {fileID: 686062590}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.59, y: -2.48, z: -9.89}
+  m_LocalPosition: {x: 18.9, y: -2.5, z: -9.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1524,6 +1583,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coaster: 3
   luxValueTrigger: 55
+  trashTimer: 0
+  glowMat1: {fileID: 2100000, guid: d5b926de3edec9e4d80efbe17d263697, type: 2}
+  glowMat2: {fileID: 2100000, guid: 66f9d5e6e894a924bb03c394efe25973, type: 2}
 --- !u!23 &870812167
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1603,7 +1665,6 @@ GameObject:
   - component: {fileID: 962620551}
   - component: {fileID: 962620550}
   - component: {fileID: 962620549}
-  - component: {fileID: 962620548}
   - component: {fileID: 962620547}
   m_Layer: 0
   m_Name: Bottle red
@@ -1625,40 +1686,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleIngredient: 0
-  timeToPour: 2.5
+  timeToPour: 2
   currentPourTime: 0
   fillReduceBonus: 10
-  fillPercentage: 45
-  maxPercentage: 60
+  fillPercentage: 100
+  maxPercentage: 100
   fillSpeed: 2
   isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
   FillingRFIDTag: 
   PouringRFIDTag: 86C37FB8
---- !u!136 &962620548
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962620546}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &962620549
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1721,7 +1759,7 @@ Transform:
   m_GameObject: {fileID: 962620546}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.59, y: -2.48, z: -5.8}
+  m_LocalPosition: {x: 18.1, y: -2.5, z: -5.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1791,10 +1829,42 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7048850688081325455, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: -5942606971357763357, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f0fcdb8f97bbe0a4fbd829072c5c3744, type: 2}
     - target: {fileID: -4683669308469848369, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4a0282f7d2f676b45901842a6cd8be94, type: 2}
+    - target: {fileID: -3542852092398272455, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -678588488315902003, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1819,6 +1889,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: f0fcdb8f97bbe0a4fbd829072c5c3744, type: 2}
+    - target: {fileID: 8286839800455113459, guid: c3a4a8eaf0032a5409c844ea639b7a82, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3035,7 +3109,6 @@ GameObject:
   - component: {fileID: 1569594576}
   - component: {fileID: 1569594575}
   - component: {fileID: 1569594574}
-  - component: {fileID: 1569594573}
   - component: {fileID: 1569594572}
   m_Layer: 0
   m_Name: Bottle green
@@ -3057,40 +3130,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleIngredient: 1
-  timeToPour: 2.5
+  timeToPour: 2
   currentPourTime: 0
   fillReduceBonus: 10
-  fillPercentage: 45
-  maxPercentage: 60
+  fillPercentage: 100
+  maxPercentage: 100
   fillSpeed: 2
   isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
   FillingRFIDTag: 
   PouringRFIDTag: 41F2D6A3
---- !u!136 &1569594573
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1569594571}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1569594574
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3153,7 +3203,7 @@ Transform:
   m_GameObject: {fileID: 1569594571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.59, y: -2.48, z: -7.129}
+  m_LocalPosition: {x: 18.5, y: -2.5, z: -7.129}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3192,6 +3242,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coaster: 1
   luxValueTrigger: 55
+  trashTimer: 0
+  glowMat1: {fileID: 2100000, guid: d5b926de3edec9e4d80efbe17d263697, type: 2}
+  glowMat2: {fileID: 2100000, guid: 66f9d5e6e894a924bb03c394efe25973, type: 2}
 --- !u!23 &1582116231
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3292,6 +3345,7 @@ Transform:
   - {fileID: 1582116233}
   - {fileID: 678666117}
   - {fileID: 870812169}
+  - {fileID: 70468354}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1798123192

@@ -51,20 +51,24 @@ public class Bottles : MonoBehaviour
 
     public void PourTimer()
     {
-        currentPourTime += Time.deltaTime;
-
-        if( currentPourTime >= timeToPour)
+        if (fillPercentage > 0)
         {
-            DecreasePercentage(currentPourTime + fillReduceBonus);
-            m_playerScript.currentIngredients.Add(bottleIngredient);
- 
-            currentPourTime = 0;
+            currentPourTime += Time.deltaTime;
+            DecreasePercentage(fillReduceBonus * Time.deltaTime);
+
+            if (currentPourTime >= timeToPour)
+            {
+                m_playerScript.currentIngredients.Add(bottleIngredient);
+
+                currentPourTime = 0;
+            }
         }
     }
 
     private void DecreasePercentage(float ammount)
     {
         fillPercentage -= ammount;
+        if (fillPercentage < 0) fillPercentage = 0;
     }
 
     private void FillBottle()

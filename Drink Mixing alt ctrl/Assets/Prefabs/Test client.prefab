@@ -276,6 +276,7 @@ MonoBehaviour:
   maxWaitTime: 50
   maxTipWaiTime: 35
   isTipping: 1
+  despawnTime: 3
   currentWaitTime: 0
   isAngry: 0
   hasBeenServed: 0

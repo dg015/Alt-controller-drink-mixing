@@ -39,10 +39,10 @@ public class GameTimer : MonoBehaviour
     {
         //currentGameTimer = Mathf.Clamp(currentGameTimer,0,gameTimerLimit);
         currentGameTimer -= Time.deltaTime;
-        int minuntes = Mathf.FloorToInt(currentGameTimer / 60);
+        int minutes = Mathf.FloorToInt(currentGameTimer / 60);
         int seconds = Mathf.FloorToInt(currentGameTimer % 60);
 
-        timerText.text = string.Format("{0:00}:{1:00}",minuntes,seconds);
+        timerText.text = string.Format("{0:00}:{1:00}",minutes,seconds);
 
         if (currentGameTimer <= 0)
         {

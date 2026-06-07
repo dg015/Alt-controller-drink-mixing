@@ -43,7 +43,7 @@ public class ClientManager : MonoBehaviour
     public void FreeSpawn(Spawner spawn, bool isAngry = false)
     {
         spawn.isOccupied = false;
-        if (isAngry) ScoreManager.Instance.AddScore(-1);
+        if (isAngry) ScoreManager.Instance.AddScore(-5);
     }
 
 
