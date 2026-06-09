@@ -73,20 +73,14 @@ public class ArduinoDataReceiver : MonoBehaviour
             if (serial.BytesToRead == 0) return;
 
             //read content
-            string data = serial.ReadExisting();
+            string data = serial.ReadLine();
 
             //if its empty reset
             if (string.IsNullOrEmpty(data))
                 return;
 
-            // check the lines and split at the end
-            string[] lines = data.Split('\n');
-            
-            //get the latest lime
-            string latestLine = lines[lines.Length - 2].Trim();
-
             //separate it based on ","
-            string[] values = latestLine.Split(",");
+            string[] values = data.Split(",");
 
            
 
@@ -102,6 +96,7 @@ public class ArduinoDataReceiver : MonoBehaviour
             int.TryParse(values[4], out tapData);
 
             pouringRFIDData = values[5];
+
         }
         //if timeout just timeout
         catch (System.TimeoutException)
