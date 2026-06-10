@@ -678,6 +678,8 @@ MonoBehaviour:
   m_playerScript: {fileID: 1115572162}
   FillingRFIDTag: 
   PouringRFIDTag: 28C376
+  pourSound: {fileID: 1431638487}
+  isPlaying: 0
 --- !u!23 &221585239
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1004,6 +1006,7 @@ Transform:
   - {fileID: 116745874}
   - {fileID: 1894761897}
   - {fileID: 1796528560}
+  - {fileID: 1431638486}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291831370
@@ -1504,6 +1507,8 @@ MonoBehaviour:
   m_playerScript: {fileID: 1115572162}
   FillingRFIDTag: 
   PouringRFIDTag: 2674BDB8
+  pourSound: {fileID: 1431638487}
+  isPlaying: 0
 --- !u!23 &686062593
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1792,7 +1797,7 @@ MonoBehaviour:
     Path: event:/Crowd ambiance
   Event: 
   EventPlayTrigger: 1
-  EventStopTrigger: 0
+  EventStopTrigger: 2
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
@@ -1859,6 +1864,8 @@ MonoBehaviour:
   m_playerScript: {fileID: 1115572162}
   FillingRFIDTag: 
   PouringRFIDTag: 86C37FB8
+  pourSound: {fileID: 1431638487}
+  isPlaying: 0
 --- !u!23 &962620549
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3114,6 +3121,69 @@ PrefabInstance:
       addedObject: {fileID: 773702549}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 121250c361df08344b460316bc0eb306, type: 3}
+--- !u!1 &1431638485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1431638486}
+  - component: {fileID: 1431638487}
+  m_Layer: 0
+  m_Name: pour sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1431638486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431638485}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.102006, y: -1.9247735, z: 18.800663}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 283575624}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1431638487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431638485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -461675871
+      Data2: 1151076082
+      Data3: 1990528398
+      Data4: -2000640371
+    Path: event:/Pour
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1446600476
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,6 +3463,8 @@ MonoBehaviour:
   m_playerScript: {fileID: 1115572162}
   FillingRFIDTag: 
   PouringRFIDTag: 41F2D6A3
+  pourSound: {fileID: 1431638487}
+  isPlaying: 0
 --- !u!23 &1569594574
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3611,7 +3683,7 @@ GameObject:
   - component: {fileID: 1796528560}
   - component: {fileID: 1796528561}
   m_Layer: 0
-  m_Name: ong
+  m_Name: Song
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3647,21 +3719,19 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1520585587
-      Data2: 1156736470
-      Data3: 1163580315
-      Data4: -1747324157
-    Path: event:/Filling bottle
+      Data1: 1049751468
+      Data2: 1109062891
+      Data3: 1833157311
+      Data4: -282098891
+    Path: event:/Song
   Event: 
-  EventPlayTrigger: 0
-  EventStopTrigger: 0
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
   NonRigidbodyVelocity: 0
-  Params:
-  - Name: Bottle fill progress
-    Value: 0
+  Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
