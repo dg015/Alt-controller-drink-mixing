@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
@@ -27,6 +28,9 @@ public class Bottles : MonoBehaviour
     [SerializeField] public string FillingRFIDTag;
     [SerializeField] public string PouringRFIDTag;
 
+    [Header("Sounds")]
+    [SerializeField] private StudioEventEmitter pourSound;
+    [SerializeField] private bool isPlaying;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +43,11 @@ public class Bottles : MonoBehaviour
         if (isBeingUsed)
         {
             PourTimer();
+            if(!pourSound.IsPlaying())
+            {
+                pourSound.Play();
+            }
+
         }
         //to make sure no over pour
         if (m_playerScript.currentIngredients.Count >= 4)

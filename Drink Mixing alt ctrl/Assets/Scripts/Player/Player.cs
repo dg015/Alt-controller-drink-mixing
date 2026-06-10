@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,13 +24,20 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isHoldingButton;
     [SerializeField] private int previousButtonState;
 
+
     [SerializeField] private Manager manager;
     [SerializeField] private ClientManager clientManager;
 
 
     [SerializeField] playerCupUIUpdater cupUI;
 
+    [Header("beer tap")]
+    private bool isFilling;
 
+    [Header("Sounds")]
+    [SerializeField] private StudioEventEmitter bellSound;
+    [SerializeField] private StudioEventEmitter trashSound;
+    [SerializeField] private StudioEventEmitter fillSound;
     private void Update()
     {
         PourBottle();
@@ -159,6 +167,7 @@ public class Player : MonoBehaviour
             if (currentButtonHoldTime >= trashButtonHoldTime)
             {
                 Debug.Log("trash drink");
+                trashSound.Play();
                 currentIngredients.Clear();
             }
             //otherwise send drink
@@ -166,6 +175,7 @@ public class Player : MonoBehaviour
             {
                 if (ReturnSelectedCoaster() > 0)
                 {
+                    bellSound.Play();
                     Debug.Log("send drink");
                     //call order up using the manager and passing the currentIngredients and returnSelectedCoaster()
                     //Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
@@ -263,21 +273,21 @@ public class Player : MonoBehaviour
 
     private void RefillForVideo()
     {
-        if (ArduinoDataReceiver.Instance.tapData == 1)
+        bool tapData = ArduinoDataReceiver.Instance.tapData == 0;
+        if (!tapData && !isFilling)
         {
-            for (int i = 0; i < bottles.Count; i++)
-            {
-                bottles[i].isBeingFilled = true;
-            }
+            isFilling = true;
+            fillSound.Play();
         }
-        else
+        else if(tapData && isFilling)
         {
-            for (int i = 0; i < bottles.Count; i++)
-            {
-                bottles[i].isBeingFilled = false;
-            }
-        }    
-
+            fillSound.Stop();
+            isFilling =false;
+        }
+        for (int i = 0; i < bottles.Count; i++)
+        {
+            bottles[i].isBeingFilled = tapData;
+        }
     }
 
     private void PourBottle()

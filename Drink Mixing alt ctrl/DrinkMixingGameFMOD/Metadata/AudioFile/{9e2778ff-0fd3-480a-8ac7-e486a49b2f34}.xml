@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{9e2778ff-0fd3-480a-8ac7-e486a49b2f34}">
+		<property name="assetPath">
+			<value>464923__plasterbrain__jazz-loop-rusted-maid.flac</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>30.843038548752833</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{de7a49ec-64bb-4be1-bff5-9e7c2110ebd7}</destination>
+		</relationship>
+	</object>
+</objects>
