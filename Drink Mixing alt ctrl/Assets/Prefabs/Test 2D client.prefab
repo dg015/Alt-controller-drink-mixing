@@ -286,6 +286,10 @@ MonoBehaviour:
   coaster: 1
   score: 10
   tip: 5
+  clientSprites:
+  - {fileID: 7613415706788565702, guid: 0a51d5f365468a14c983e9a74073cccc, type: 3}
+  - {fileID: 160350853355066193, guid: b2d69319e1f87894c8f8899f9d18dcc2, type: 3}
+  - {fileID: -3498347349982088526, guid: 1bc0971f2ffd7e24790c5226fc576e93, type: 3}
   mySpawn: {fileID: 0}
   clientManager: {fileID: 0}
 --- !u!1 &1302425228582184354
@@ -1058,7 +1062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2833187619982374042, guid: 121250c361df08344b460316bc0eb306, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.85
+      value: 3.44
       objectReference: {fileID: 0}
     - target: {fileID: 2833187619982374042, guid: 121250c361df08344b460316bc0eb306, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

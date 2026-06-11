@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
 
     public void loadGameButton()
     {
-        SceneManager.LoadScene("Main Game");
+        SceneManager.LoadScene("Main Scene");
     }
 
     public void loadSettingsButton()

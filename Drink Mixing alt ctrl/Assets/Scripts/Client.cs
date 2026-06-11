@@ -20,6 +20,8 @@ public class Client : MonoBehaviour
     [SerializeField] private int score;
     [SerializeField] private int tip;
 
+    [SerializeField] private List <Sprite> clientSprites;
+
     private bool triggerd = false;
 
     public Spawner mySpawn;
@@ -34,6 +36,10 @@ public class Client : MonoBehaviour
         currentWaitTime = maxWaitTime;
         isAngry = false;
         isTipping = true;
+
+        Sprite randomSprite = clientSprites[Random.Range(0, clientSprites.Count)];
+        gameObject.GetComponent<SpriteRenderer>().sprite = randomSprite;
+
     }
 
     
@@ -75,17 +81,26 @@ public class Client : MonoBehaviour
     private IEnumerator ClearingSpot()
     {
         float timer = 0f;
+
+
+        /*
         MeshRenderer mr = GetComponent<MeshRenderer>();
         Material newMat = mr.material;
         Color originColor = mr.material.color;
+        */
+
+
+        SpriteRenderer sr = GetComponent<SpriteRenderer>(); 
+
+        Color originColor = sr.color;
 
         while (timer < despawnTime)
         {
             if (isAngry)
-                newMat.color = Color.Lerp(originColor, Color.red, timer / despawnTime);
+                sr.color = Color.Lerp(originColor, Color.red, timer / despawnTime);
             else
-                newMat.color = Color.Lerp(originColor, Color.cyan, timer / despawnTime);
-            mr.material = newMat;
+                sr.color = Color.Lerp(originColor, Color.cyan, timer / despawnTime);
+            //mr.material = newMat;
 
             timer += Time.deltaTime;
             yield return null; 

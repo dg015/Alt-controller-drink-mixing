@@ -48,6 +48,10 @@ public class ClientUIUpdater : MonoBehaviour
             {
                 UIImages[i].color = Color.white;
             }
+            else if (client.order[i] == Ingredients.Shake)
+            {
+                UIImages[i].color = Color.black;
+            }
         }
     }
 }
