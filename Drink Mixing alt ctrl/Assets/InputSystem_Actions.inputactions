@@ -82,7 +82,52 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RedBottle",
+                    "type": "Button",
+                    "id": "fed38120-bf0d-4096-bb3b-6e3f0175cb37",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BlueBottle",
+                    "type": "Button",
+                    "id": "3faab16e-381e-4254-8106-dbb2e8f22d5f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GreenBottle",
+                    "type": "Button",
+                    "id": "0d435c52-96d4-4ac8-be43-633283588179",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WhiteBottle",
+                    "type": "Button",
+                    "id": "abf5d1bc-140d-40bd-8513-f188e908f62c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Shake",
+                    "type": "Button",
+                    "id": "4bd83f5a-9e6e-4db5-a63c-c45d9a714fbb",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -471,6 +516,61 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea32972e-c0d7-443c-8c04-e27e174b6fed",
+                    "path": "<Joystick>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RedBottle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ef25082-5d25-4d0f-b5ed-1c01d89feb11",
+                    "path": "<HID::E502-BBAB>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlueBottle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e34bcc56-8ed0-497c-aca5-ea120e8ee5a6",
+                    "path": "<HID::E502-BBAB>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GreenBottle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ab2d017-b647-4d0a-956e-eac97e4ae429",
+                    "path": "<HID::E502-BBAB>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "WhiteBottle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d17692fe-02e9-47c5-a237-bb374417d5b7",
+                    "path": "<HID::E502-BBAB>/button5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
