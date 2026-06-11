@@ -150,6 +150,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &5931379610304101608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2550349440616503048}
+  m_Layer: 0
+  m_Name: Red bottle fill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2550349440616503048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931379610304101608}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.00003918542, y: -0.000008467471, z: 0}
+  m_LocalScale: {x: 3.5058782, y: 1.5151514, z: 0.47973996}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9113815296959653856}
+  m_Father: {fileID: 5902355172970579518}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6736126404255955196
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,16 +209,16 @@ RectTransform:
   m_GameObject: {fileID: 6736126404255955196}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.1314664, y: 1, z: 1}
+  m_LocalScale: {x: 1.1784397, y: 0.66, z: 2.0844626}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1759526021734845293}
   - {fileID: 3966670423796402068}
-  m_Father: {fileID: 5902355172970579518}
+  m_Father: {fileID: 2550349440616503048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000015258789, y: 0}
   m_SizeDelta: {x: 1, y: 0.4095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4219246578656477213
@@ -413,7 +445,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2833187619982374042, guid: 121250c361df08344b460316bc0eb306, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9113815296959653856}
+      addedObject: {fileID: 2550349440616503048}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 121250c361df08344b460316bc0eb306, type: 3}
 --- !u!224 &5902355172970579518 stripped

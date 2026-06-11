@@ -69,7 +69,7 @@ MonoBehaviour:
   Path: DrinkMixingGameFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639167285924800985
+  lastModified: 639166326320382076
   FileSizes:
   - Name: Desktop
     Value: 1973664
@@ -210,7 +210,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 4320606642333185364}
   cacheVersion: 131848
-  cacheTime: 639167285924830971
+  cacheTime: 639166326320402075
   SerializableEventsDict:
   - key: event:/Trash
     index: 0
@@ -358,7 +358,7 @@ MonoBehaviour:
   Path: DrinkMixingGameFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639167285924830971
+  lastModified: 639166326320402075
   FileSizes:
   - Name: Desktop
     Value: 1352
