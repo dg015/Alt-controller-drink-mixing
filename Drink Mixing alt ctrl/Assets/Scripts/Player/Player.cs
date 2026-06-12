@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
     [SerializeField] private StudioEventEmitter trashSound;
     [SerializeField] private StudioEventEmitter fillSound;
 
-
     private void Start()
     {
          luxValueTrigger = LuxValueSetup.Instance.luxFactor;
@@ -60,44 +59,6 @@ public class Player : MonoBehaviour
         DebugAddToCup();
     }
 
-    /*
-    //this is to select the bottle for pouring
-    private void selectBottleByRFID(string RFID)
-    {
-        foreach (var bottle in bottles)
-        {
-            if (bottle.PouringRFIDTag == RFID)
-            {
-                currentPourBottle = bottle;
-            }
-        }
-    }
-
-    */
-
-    /*
-    /// <summary>
-    /// Adds ingridient to the cup based on the RFID tag ID string
-    /// TODO check if the bottle is full enough first 
-    /// </summary>
-    public void addToCup(Enum ingridient)
-    {
-        for (int i = 0; i < bottles.Count; i++)
-        {
-            //loop through all bottles and check if the RFID tag matches the bottle
-            if (currentPourBottle.PouringRFIDTag == bottles[i].PouringRFIDTag)
-            {
-                //enable pouring of the current bottle
-                bottles[i].isBeingUsed = true;
-                Debug.Log("Pouring bottle: " + bottles[i].name);
-            }
-            else
-            {
-                bottles[i].isBeingUsed = false;
-            }
-        }
-    }
-    */
 
     //checks the LUX value from each coaster and compares it to see which is below the treshhold and returns the number of the coaster as an int
     private int ReturnSelectedCoaster()
@@ -281,15 +242,15 @@ public class Player : MonoBehaviour
     private void RefillForVideo()
     {
         bool tapData = ArduinoDataReceiver.Instance.tapData == 0;
-        if (!tapData && !isFilling)
+        if (tapData && !isFilling)
         {
             isFilling = true;
             fillSound.Play();
         }
-        else if(tapData && isFilling)
+        else if(!tapData && isFilling)
         {
             fillSound.Stop();
-            isFilling =false;
+            isFilling = false;
         }
         for (int i = 0; i < bottles.Count; i++)
         {
