@@ -7,12 +7,13 @@ public class MainMenu : MonoBehaviour
     public void loadGameButton()
     {
         SceneManager.LoadScene("Main Scene");
+        ArduinoDataReceiver.Instance.serial.Close();
     }
 
     public void loadSettingsButton()
     {
-        Debug.LogWarning("Settings scene not setup yet");
-        //SceneManager.LoadScene("Main Game");
+        //Debug.LogWarning("Settings scene not setup yet");
+        SceneManager.LoadScene("Settings");
     }
 
     public void loadCreditsButton()

@@ -38,6 +38,13 @@ public class Player : MonoBehaviour
     [SerializeField] private StudioEventEmitter bellSound;
     [SerializeField] private StudioEventEmitter trashSound;
     [SerializeField] private StudioEventEmitter fillSound;
+
+
+    private void Start()
+    {
+         luxValueTrigger = LuxValueSetup.Instance.luxFactor;
+    }
+
     private void Update()
     {
         PourBottle();
