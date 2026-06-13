@@ -3,7 +3,7 @@ using System.IO.Ports;
 
 public class ArduinoDataReceiver : MonoBehaviour
 {
-    private SerialPort serial = new SerialPort("COM5", 115200);
+    private SerialPort serial = new SerialPort("COM3", 115200);
 
     public static ArduinoDataReceiver Instance;
     

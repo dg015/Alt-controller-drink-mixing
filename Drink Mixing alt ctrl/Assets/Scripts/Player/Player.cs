@@ -273,7 +273,7 @@ public class Player : MonoBehaviour
 
     private void RefillForVideo()
     {
-        bool tapData = ArduinoDataReceiver.Instance.tapData == 0;
+        bool tapData = ArduinoDataReceiver.Instance.tapData == 1;
         if (!tapData && !isFilling)
         {
             isFilling = true;

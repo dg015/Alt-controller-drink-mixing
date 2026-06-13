@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-public enum Ingredients { Red, Green, Blue, White , Shake }
+public enum Ingredients { Red, Green, Blue, White }// , Shake }
 public class Manager : MonoBehaviour
 {
     [SerializeField] private Player player;
