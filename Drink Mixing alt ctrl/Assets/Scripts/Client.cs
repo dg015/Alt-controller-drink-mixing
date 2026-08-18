@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,16 @@ public class Client : MonoBehaviour
 {
     [SerializeField] public List<Ingredients> order;
 
+
+    [Header("wait time")]
     [SerializeField] public float maxWaitTime;
     [SerializeField] private float maxTipWaiTime;
-    [SerializeField] private bool isTipping = true;
-    [SerializeField] private float despawnTime;
     [SerializeField] public float currentWaitTime;
+
+    [SerializeField] private float despawnTime;
+
+
+    [Header ("States")]
     [SerializeField] private bool isAngry = false;
     [SerializeField] public bool hasBeenServed = false;
 
@@ -18,12 +24,24 @@ public class Client : MonoBehaviour
     [SerializeField][Range(1,3)] public int coaster;
 
     [SerializeField] private int score;
+
+    [Header("Tipping")]
+    [SerializeField] private bool isTipping = true;
     [SerializeField] private int tip;
 
+
+    [Header("Sprite")]
     [SerializeField] private List <Sprite> clientSprites;
+
+    [Header("Animation")]
+    [SerializeField] private SpriteRenderer m_shadowSprite;
+    [SerializeField] private float m_animDuration;
+    [SerializeField] private bool m_isReady = false;
 
     private bool triggerd = false;
 
+
+    [Header("Refernces")]
     public Spawner mySpawn;
     public ClientManager clientManager;
     private Coroutine clearingSpot;
@@ -31,6 +49,8 @@ public class Client : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SpawnAnimation(m_animDuration);
+
         order = Manager.Instance.NewMixture(4);
 
         currentWaitTime = maxWaitTime;
@@ -39,7 +59,7 @@ public class Client : MonoBehaviour
 
         Sprite randomSprite = clientSprites[Random.Range(0, clientSprites.Count)];
         gameObject.GetComponent<SpriteRenderer>().sprite = randomSprite;
-
+        m_shadowSprite.sprite = randomSprite;
     }
 
     
@@ -48,6 +68,9 @@ public class Client : MonoBehaviour
     void Update()
     {
         //start countdown
+        if (!m_isReady)
+            return;
+
         ClientWait();
         if(hasBeenServed && !triggerd)
         {
@@ -82,14 +105,6 @@ public class Client : MonoBehaviour
     {
         float timer = 0f;
 
-
-        /*
-        MeshRenderer mr = GetComponent<MeshRenderer>();
-        Material newMat = mr.material;
-        Color originColor = mr.material.color;
-        */
-
-
         SpriteRenderer sr = GetComponent<SpriteRenderer>(); 
 
         Color originColor = sr.color;
@@ -109,24 +124,17 @@ public class Client : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /*
-    private void pickRandomIngridient()
+    private void SpawnAnimation(float animDuration)
     {
-        int number = Random.Range(1, 4);
-        Ingredients chosenIngridient;
-        switch (number)
+        SpriteRenderer renderer = transform.GetComponent<SpriteRenderer>();
+
+        renderer.DOFade(1, animDuration / 3).OnComplete(() =>
         {
-            case 1:
-                ingridient  = 
-        }
+            m_shadowSprite.DOFade(0, animDuration).OnComplete(() =>
+            {
+                m_isReady = true;
+            });
+        });
     }
 
-    private void createOrder(int size)
-    {
-        for (int i = 0; i < size; i++)
-        {
-            order.Add( Random.RandomRange()
-        }
-    }
-    */
 }
