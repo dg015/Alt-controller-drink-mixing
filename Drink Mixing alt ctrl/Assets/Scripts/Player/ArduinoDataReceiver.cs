@@ -3,7 +3,8 @@ using System.IO.Ports;
 
 public class ArduinoDataReceiver : MonoBehaviour
 {
-    private SerialPort serial = new SerialPort("COM3", 115200);
+    private SerialPort m_serial = new SerialPort("COM3", 115200);
+    public SerialPort Serial { get { return m_serial; }  set { Serial = m_serial; } }
 
     public static ArduinoDataReceiver Instance;
     
@@ -34,8 +35,8 @@ public class ArduinoDataReceiver : MonoBehaviour
     }
     void Start()
     {
-        serial.Open();
-        serial.ReadTimeout = 100;
+        m_serial.Open();
+        m_serial.ReadTimeout = 100;
         buttonData = 3;
     }
 
@@ -67,13 +68,13 @@ public class ArduinoDataReceiver : MonoBehaviour
         try
         {
             //chek if serial is open
-            if (!serial.IsOpen) return;
+            if (!m_serial.IsOpen) return;
 
             //check if theres content to read
-            if (serial.BytesToRead == 0) return;
+            if (m_serial.BytesToRead == 0) return;
 
             //read content
-            string data = serial.ReadLine();
+            string data = m_serial.ReadLine();
 
             //if its empty reset
             if (string.IsNullOrEmpty(data))
@@ -113,6 +114,6 @@ public class ArduinoDataReceiver : MonoBehaviour
     //close serial door on close to stop it from future errors
     private void OnApplicationQuit()
     {
-        serial.Close();
+        m_serial.Close();
     }
 }

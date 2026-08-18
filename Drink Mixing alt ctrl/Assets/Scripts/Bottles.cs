@@ -10,15 +10,8 @@ public class Bottles : MonoBehaviour
     [Header("Pouring")]
     [SerializeField] public float timeToPour;
     [SerializeField] public float currentPourTime;
-    [SerializeField] private float fillReduceBonus;
-
-    [Header("Bottle capacity")]
-    [SerializeField] public float fillPercentage = 100;
-    [SerializeField] public float maxPercentage = 100;
-    [SerializeField] private int fillSpeed;
 
     [Header("Booleans")]
-    [SerializeField] public bool isBeingFilled;
     [SerializeField] public bool isBeingUsed;
 
     [Header("References")]
@@ -35,7 +28,7 @@ public class Bottles : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        fillPercentage = maxPercentage;   
+        //fillPercentage = maxPercentage;   
     }
 
     private void Update()
@@ -54,39 +47,19 @@ public class Bottles : MonoBehaviour
         {
             currentPourTime = 0;
         }
-        FillBottle();
     }
 
 
     public void PourTimer()
     {
-        if (fillPercentage > 0)
+        currentPourTime += Time.deltaTime;
+
+        if (currentPourTime >= timeToPour)
         {
-            currentPourTime += Time.deltaTime;
-            DecreasePercentage(fillReduceBonus * Time.deltaTime);
+            m_playerScript.currentIngredients.Add(bottleIngredient);
 
-            if (currentPourTime >= timeToPour)
-            {
-                m_playerScript.currentIngredients.Add(bottleIngredient);
-
-                currentPourTime = 0;
-            }
+            currentPourTime = 0;
         }
     }
-
-    private void DecreasePercentage(float ammount)
-    {
-        fillPercentage -= ammount;
-        if (fillPercentage < 0) fillPercentage = 0;
-    }
-
-    private void FillBottle()
-    {
-        if (isBeingFilled && fillPercentage < maxPercentage)
-        {
-            fillPercentage = fillPercentage += Time.deltaTime * fillSpeed;
-        }
-    }
-
 
 }

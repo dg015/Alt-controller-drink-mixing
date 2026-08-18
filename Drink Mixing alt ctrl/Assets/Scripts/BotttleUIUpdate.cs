@@ -14,7 +14,6 @@ public class BotttleUIUpdate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float progress = bottle.fillPercentage/ bottle.maxPercentage;
-        progressBar.fillAmount = progress;
+
     }
 }

@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
     public void loadGameButton()
     {
         SceneManager.LoadScene("Main Scene");
-        ArduinoDataReceiver.Instance.serial.Close();
+        ArduinoDataReceiver.Instance.Serial.Close();
     }
 
     public void loadSettingsButton()

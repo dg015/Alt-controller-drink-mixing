@@ -48,12 +48,7 @@ public class Player : MonoBehaviour
     {
         PourBottle();
 
-
-        //refilBottle();
-        RefillForVideo();
-
         ButtonManager();
-
 
         //debug methods
         DebugAddToCup();
@@ -214,49 +209,7 @@ public class Player : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Grab the refil bottle RFID data
-    /// compare the RFID tag with all the bottles and if it matches then set that bottle as refilling otherwise set as not being refilled
-    /// </summary>
-    private void RefillBottle()
-    {
-        string currentRefilBottle = ArduinoDataReceiver.Instance.refilRFIDData;
-        if (ArduinoDataReceiver.Instance.tapData == 1)
-        {
-            for (int i = 0; i < bottles.Count; i++)
-            {
-                //loop through all bottles and check if the RFID tag matches the bottle
-                if (currentRefilBottle == bottles[i].FillingRFIDTag)
-                {
-                    //enable pouring of the current bottle
-                    bottles[i].isBeingFilled = true;
-                }
-                else
-                {
-                    bottles[i].isBeingFilled = false;
-                }
-            }
-        }
-    }
 
-    private void RefillForVideo()
-    {
-        bool tapData = ArduinoDataReceiver.Instance.tapData == 0;
-        if (tapData && !isFilling)
-        {
-            isFilling = true;
-            fillSound.Play();
-        }
-        else if(!tapData && isFilling)
-        {
-            fillSound.Stop();
-            isFilling = false;
-        }
-        for (int i = 0; i < bottles.Count; i++)
-        {
-            bottles[i].isBeingFilled = tapData;
-        }
-    }
 
     private void PourBottle()
     {
