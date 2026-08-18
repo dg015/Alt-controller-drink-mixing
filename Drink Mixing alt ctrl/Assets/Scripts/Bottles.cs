@@ -18,7 +18,7 @@ public class Bottles : MonoBehaviour
     [SerializeField] private Player m_playerScript;
 
     [Header("RFID")]
-    [SerializeField] public string FillingRFIDTag;
+    //[SerializeField] public string FillingRFIDTag;
     [SerializeField] public string PouringRFIDTag;
 
     [Header("Sounds")]

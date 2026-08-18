@@ -309,7 +309,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46695388}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -372,14 +372,8 @@ MonoBehaviour:
   bottleIngredient: 0
   timeToPour: 2
   currentPourTime: 0
-  fillReduceBonus: 10
-  fillPercentage: 100
-  maxPercentage: 100
-  fillSpeed: 2
-  isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
-  FillingRFIDTag: 
   PouringRFIDTag: 86C37FB8
   pourSound: {fileID: 1431638487}
   isPlaying: 0
@@ -393,6 +387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 54324210}
   - component: {fileID: 54324211}
+  - component: {fileID: 54324212}
   m_Layer: 0
   m_Name: Beer tap
   m_TagString: Untagged
@@ -472,6 +467,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &54324212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54324209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ebc2d5fd7a0d26488270ff8bb7c0067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_tapIngridient: 4
+  timeToPour: 2
+  currentPourTime: 0
+  isBeingUsed: 0
+  m_playerScript: {fileID: 1115572162}
+  pourSound: {fileID: 1894761898}
+  isPlaying: 0
+  cupUI: {fileID: 144288260}
 --- !u!1 &67678463
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,7 +2220,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878865491}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2268,14 +2283,8 @@ MonoBehaviour:
   bottleIngredient: 1
   timeToPour: 2
   currentPourTime: 0
-  fillReduceBonus: 10
-  fillPercentage: 100
-  maxPercentage: 100
-  fillSpeed: 2
-  isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
-  FillingRFIDTag: 
   PouringRFIDTag: 41F2D6A3
   pourSound: {fileID: 1431638487}
   isPlaying: 0
@@ -2357,7 +2366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &923312363
 Transform:
   m_ObjectHideFlags: 0
@@ -2795,7 +2804,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076824451}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2858,14 +2867,8 @@ MonoBehaviour:
   bottleIngredient: 3
   timeToPour: 2
   currentPourTime: 0
-  fillReduceBonus: 10
-  fillPercentage: 100
-  maxPercentage: 100
-  fillSpeed: 2
-  isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
-  FillingRFIDTag: 
   PouringRFIDTag: 2674BDB8
   pourSound: {fileID: 1431638487}
   isPlaying: 0
@@ -2913,6 +2916,7 @@ MonoBehaviour:
   manager: {fileID: 1881255161}
   clientManager: {fileID: 459968644}
   cupUI: {fileID: 144288260}
+  m_tap: {fileID: 54324212}
   bellSound: {fileID: 1917654912}
   trashSound: {fileID: 116745875}
   fillSound: {fileID: 1894761898}
@@ -3050,7 +3054,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1174140612}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3113,14 +3117,8 @@ MonoBehaviour:
   bottleIngredient: 2
   timeToPour: 2
   currentPourTime: 0
-  fillReduceBonus: 10
-  fillPercentage: 100
-  maxPercentage: 100
-  fillSpeed: 2
-  isBeingFilled: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
-  FillingRFIDTag: 
   PouringRFIDTag: 28C376
   pourSound: {fileID: 1431638487}
   isPlaying: 0

@@ -32,7 +32,8 @@ public class Player : MonoBehaviour
     [SerializeField] playerCupUIUpdater cupUI;
 
     [Header("beer tap")]
-    private bool isFilling;
+    [SerializeField] private BeerTap m_tap;
+
 
     [Header("Sounds")]
     [SerializeField] private StudioEventEmitter bellSound;

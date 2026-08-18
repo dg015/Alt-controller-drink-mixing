@@ -35,6 +35,11 @@ public class playerCupUIUpdater : MonoBehaviour
         {
             fillBar.color = Color.white;
         }
+        else if (currentIngridient == Ingredients.Tap)
+        {
+            //brown
+            fillBar.color = new Color(0.59f, 0.29f, 0.0f);
+        }
     }
 
     public void UpdateBarProgress(float currentPourTime, float timeToPour)
@@ -72,6 +77,10 @@ public class playerCupUIUpdater : MonoBehaviour
                 else if (playerScript.currentIngredients[i] == Ingredients.White)
                 {
                     UIImages[i].color = Color.white;
+                }
+                else if (playerScript.currentIngredients[i] == Ingredients.Tap)
+                {
+                    UIImages[i].color = new Color(0.59f, 0.29f, 0.0f);
                 }
             }
         }
