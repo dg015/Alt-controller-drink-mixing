@@ -216,7 +216,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148733931184106303}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 
-  maxWaitTime: 50
+  maxWaitTime: 10
   maxTipWaitTime: 0
   currentWaitTime: 0
   despawnTime: 3
@@ -291,8 +291,7 @@ MonoBehaviour:
   - {fileID: 7613415706788565702, guid: 0a51d5f365468a14c983e9a74073cccc, type: 3}
   - {fileID: 160350853355066193, guid: b2d69319e1f87894c8f8899f9d18dcc2, type: 3}
   - {fileID: -3498347349982088526, guid: 1bc0971f2ffd7e24790c5226fc576e93, type: 3}
-  m_shadowSprite: {fileID: 8331610116311200383}
-  m_mainSprite: {fileID: 0}
+  m_mainSprite: {fileID: 8331610116311200383}
   m_animDuration: 3
   m_isReady: 0
   mySpawn: {fileID: 0}
@@ -485,7 +484,7 @@ GameObject:
   - component: {fileID: 6664912369457956354}
   - component: {fileID: 8331610116311200383}
   m_Layer: 0
-  m_Name: Test 2D client
+  m_Name: Main sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,7 +550,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7613415706788565702, guid: 0a51d5f365468a14c983e9a74073cccc, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -36,7 +36,6 @@ public class Client : MonoBehaviour
     [SerializeField] private List <Sprite> clientSprites;
 
     [Header("Animation")]
-    [SerializeField] private SpriteRenderer m_shadowSprite;
     [SerializeField] private SpriteRenderer m_mainSprite;
     [SerializeField] private float m_animDuration;
     [SerializeField] private bool m_isReady = false;
@@ -59,10 +58,8 @@ public class Client : MonoBehaviour
         isTipping = true;
 
         Sprite randomSprite = clientSprites[Random.Range(0, clientSprites.Count)];
-        gameObject.GetComponent<SpriteRenderer>().sprite = randomSprite;
-        m_shadowSprite.sprite = randomSprite;
-
-        m_mainSprite = transform.GetComponent<SpriteRenderer>();
+        //gameObject.GetComponent<SpriteRenderer>().sprite = randomSprite;
+        m_mainSprite.sprite = randomSprite;
 
         SpawnAnimation(m_animDuration);
 
@@ -113,38 +110,47 @@ public class Client : MonoBehaviour
     {
         float timer = 0f;
 
-        SpriteRenderer sr = GetComponent<SpriteRenderer>(); 
+       //SpriteRenderer sr = GetComponent<SpriteRenderer>(); 
 
-        Color originColor = sr.color;
+        Color originColor = m_mainSprite.color;
 
         while (timer < despawnTime)
         {
             if (isAngry)
-                sr.color = Color.Lerp(originColor, Color.red, timer / despawnTime);
+                m_mainSprite.color = Color.Lerp(originColor, Color.red, timer / despawnTime);
             else
-                sr.color = Color.Lerp(originColor, Color.cyan, timer / despawnTime);
+                m_mainSprite.color = Color.Lerp(originColor, Color.cyan, timer / despawnTime);
             //mr.material = newMat;
 
             timer += Time.deltaTime;
             yield return null; 
         }
         clientManager.FreeSpawn(mySpawn);
+        
         DespawnAnimation(m_animDuration);
     }
 
     private void DespawnAnimation(float animDuration)
     {
-        m_shadowSprite.DOFade(1, animDuration).OnComplete(() =>
+        m_mainSprite.DOColor(Color.black, animDuration).OnComplete(() =>
         {
-            Destroy(gameObject);
+            m_mainSprite.DOFade(0, animDuration / 3).OnComplete(() =>
+            {
+                Destroy(gameObject);
+            });
         });
+
+
     }
 
     private void SpawnAnimation(float animDuration)
     {
-        m_shadowSprite.DOFade(1, animDuration / 3).OnComplete(() =>
+        m_mainSprite.DOColor(Color.black, 0f);
+        m_mainSprite.DOFade(0f, 0f);
+
+        m_mainSprite.DOFade(1, animDuration / 3).OnComplete(() =>
         {
-            m_shadowSprite.DOFade(0, animDuration).OnComplete(() =>
+            m_mainSprite.DOColor(Color.white, animDuration / 3).OnComplete(() =>
             {
                 m_isReady = true;
             });
