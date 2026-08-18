@@ -1,3 +1,4 @@
+using DG.Tweening;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -23,6 +24,7 @@ public class BeerTap : MonoBehaviour
     [SerializeField] private bool isPlaying;
 
     [SerializeField] playerCupUIUpdater cupUI;
+    [SerializeField] private Transform m_tapHandle;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,6 +52,15 @@ public class BeerTap : MonoBehaviour
             Debug.Log(" Not Pouring");
 
         }
+    }
+
+
+    private void playAnimation()
+    {
+        if (currentPourTime >= .1f)
+            m_tapHandle.DORotate(new Vector2 (- 42,0), .5f);
+        else
+            m_tapHandle.DORotate(new Vector2(0,0), .5f);
     }
 
     private void DebugPour()
@@ -81,6 +92,7 @@ public class BeerTap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playAnimation();
         ControlFill();
         DebugPour();
 
