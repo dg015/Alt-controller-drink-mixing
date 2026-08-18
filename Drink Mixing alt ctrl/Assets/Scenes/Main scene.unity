@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleIngredient: 0
-  timeToPour: 2
+  timeToPour: 1
   currentPourTime: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_tapIngridient: 4
-  timeToPour: 2
+  timeToPour: 1
   currentPourTime: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
@@ -2281,7 +2281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleIngredient: 1
-  timeToPour: 2
+  timeToPour: 1
   currentPourTime: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
@@ -2865,7 +2865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleIngredient: 3
-  timeToPour: 2
+  timeToPour: 1
   currentPourTime: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}
@@ -3115,7 +3115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleIngredient: 2
-  timeToPour: 2
+  timeToPour: 1
   currentPourTime: 0
   isBeingUsed: 0
   m_playerScript: {fileID: 1115572162}

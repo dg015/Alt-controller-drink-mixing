@@ -10,7 +10,13 @@ public class Client : MonoBehaviour
 
     [Header("wait time")]
     [SerializeField] public float maxWaitTime;
+<<<<<<< Updated upstream
     [SerializeField] private float maxTipWaiTime;
+=======
+    [SerializeField] private float maxTipWaitTime;
+    [SerializeField] private bool isTipping = true;
+    [SerializeField] private float despawnTime;
+>>>>>>> Stashed changes
     [SerializeField] public float currentWaitTime;
 
     [SerializeField] private float despawnTime;
@@ -84,8 +90,10 @@ public class Client : MonoBehaviour
 
     private void ClientWait()
     {
-        currentWaitTime -= Time.deltaTime;
-        if (currentWaitTime < maxTipWaiTime)
+        if (currentWaitTime > 0 && (!hasBeenServed && !isAngry))
+            currentWaitTime -= Time.deltaTime;
+
+        if (currentWaitTime < maxTipWaitTime)
         {
             isTipping = false;
         }

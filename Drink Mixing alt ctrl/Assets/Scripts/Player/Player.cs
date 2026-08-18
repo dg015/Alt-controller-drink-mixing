@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
                 cupUI.UpdateBarProgress(bottles[i].currentPourTime, bottles[i].timeToPour);
 
             }
-            else if (currentPourBottle == "NONE")
+            else //if (currentPourBottle == "NONE")
             {
                 bottles[i].isBeingUsed = false;
 
