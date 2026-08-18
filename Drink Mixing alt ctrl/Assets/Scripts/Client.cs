@@ -10,13 +10,9 @@ public class Client : MonoBehaviour
 
     [Header("wait time")]
     [SerializeField] public float maxWaitTime;
-<<<<<<< Updated upstream
-    [SerializeField] private float maxTipWaiTime;
-=======
+
     [SerializeField] private float maxTipWaitTime;
-    [SerializeField] private bool isTipping = true;
-    [SerializeField] private float despawnTime;
->>>>>>> Stashed changes
+
     [SerializeField] public float currentWaitTime;
 
     [SerializeField] private float despawnTime;
@@ -41,6 +37,7 @@ public class Client : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private SpriteRenderer m_shadowSprite;
+    [SerializeField] private SpriteRenderer m_mainSprite;
     [SerializeField] private float m_animDuration;
     [SerializeField] private bool m_isReady = false;
 
@@ -55,8 +52,6 @@ public class Client : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SpawnAnimation(m_animDuration);
-
         order = Manager.Instance.NewMixture(4);
 
         currentWaitTime = maxWaitTime;
@@ -66,6 +61,11 @@ public class Client : MonoBehaviour
         Sprite randomSprite = clientSprites[Random.Range(0, clientSprites.Count)];
         gameObject.GetComponent<SpriteRenderer>().sprite = randomSprite;
         m_shadowSprite.sprite = randomSprite;
+
+        m_mainSprite = transform.GetComponent<SpriteRenderer>();
+
+        SpawnAnimation(m_animDuration);
+
     }
 
     
@@ -129,14 +129,20 @@ public class Client : MonoBehaviour
             yield return null; 
         }
         clientManager.FreeSpawn(mySpawn);
-        Destroy(gameObject);
+        DespawnAnimation(m_animDuration);
+    }
+
+    private void DespawnAnimation(float animDuration)
+    {
+        m_shadowSprite.DOFade(1, animDuration).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
     }
 
     private void SpawnAnimation(float animDuration)
     {
-        SpriteRenderer renderer = transform.GetComponent<SpriteRenderer>();
-
-        renderer.DOFade(1, animDuration / 3).OnComplete(() =>
+        m_shadowSprite.DOFade(1, animDuration / 3).OnComplete(() =>
         {
             m_shadowSprite.DOFade(0, animDuration).OnComplete(() =>
             {

@@ -278,7 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 
   maxWaitTime: 50
-  maxTipWaiTime: 35
+  maxTipWaitTime: 0
   currentWaitTime: 0
   despawnTime: 3
   isAngry: 0
@@ -292,6 +292,7 @@ MonoBehaviour:
   - {fileID: 160350853355066193, guid: b2d69319e1f87894c8f8899f9d18dcc2, type: 3}
   - {fileID: -3498347349982088526, guid: 1bc0971f2ffd7e24790c5226fc576e93, type: 3}
   m_shadowSprite: {fileID: 8331610116311200383}
+  m_mainSprite: {fileID: 0}
   m_animDuration: 3
   m_isReady: 0
   mySpawn: {fileID: 0}
