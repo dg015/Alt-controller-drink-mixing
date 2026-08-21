@@ -41,7 +41,7 @@ public class BeerTap : MonoBehaviour
 
     private void ControlFill()
     {
-        if(ArduinoDataReceiver.Instance.tapData == 1)
+        if (ArduinoDataReceiver.Instance.tapData == 1)
         {
             Debug.Log("Pouring");
             isBeingUsed = true;
@@ -57,7 +57,7 @@ public class BeerTap : MonoBehaviour
 
     private void playAnimation()
     {
-        if (currentPourTime >= .1f)
+        if (currentPourTime >= .1f || isBeingUsed)
             m_tapHandle.DORotate(new Vector2 (- 42,0), .5f);
         else
             m_tapHandle.DORotate(new Vector2(0,0), .5f);

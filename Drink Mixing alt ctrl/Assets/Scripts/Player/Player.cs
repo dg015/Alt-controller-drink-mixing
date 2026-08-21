@@ -1,3 +1,4 @@
+using DG.Tweening;
 using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,11 @@ public class Player : MonoBehaviour
     [SerializeField] private ClientManager clientManager;
 
 
+    [Header("cup")]
+    [SerializeField] private Transform m_cupTransform;
     [SerializeField] playerCupUIUpdater cupUI;
+
+
 
     [Header("beer tap")]
     [SerializeField] private BeerTap m_tap;
@@ -39,6 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] private StudioEventEmitter bellSound;
     [SerializeField] private StudioEventEmitter trashSound;
     [SerializeField] private StudioEventEmitter fillSound;
+
 
     private void Start()
     {
@@ -145,6 +151,7 @@ public class Player : MonoBehaviour
                     //Manager.OrderUp(returnSelectedCoaster(), currentIngredients);
                     CheckClientRecipe();
                     currentIngredients.Clear();
+
                 }
                 else if (ReturnSelectedCoaster() == -1)
                 {

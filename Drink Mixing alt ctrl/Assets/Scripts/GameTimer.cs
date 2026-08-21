@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,6 +55,10 @@ public class GameTimer : MonoBehaviour
     private void enableEndGameUI()
     {
         endGameUI.SetActive(true);
+        RectTransform recTransform = endGameUI.GetComponent<RectTransform>();
+        recTransform.DOAnchorPos(Vector2.zero, 1.15f);
+        //recTransform.DOMove(Vector2.zero,1.5f);
+
 
     }
 
