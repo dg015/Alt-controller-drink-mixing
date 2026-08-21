@@ -296,6 +296,8 @@ MonoBehaviour:
   m_isReady: 0
   mySpawn: {fileID: 0}
   clientManager: {fileID: 0}
+  m_badParticleEffect: {fileID: 7250381096149829920, guid: 5fb9769ebb74f8e40a7c64c9459e452e, type: 3}
+  m_goodParticleEffect: {fileID: 237038725811882135, guid: 81b41b29a2c1bca4c876558ec72229a5, type: 3}
 --- !u!1 &1302425228582184354
 GameObject:
   m_ObjectHideFlags: 0

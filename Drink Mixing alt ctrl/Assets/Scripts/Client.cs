@@ -48,6 +48,9 @@ public class Client : MonoBehaviour
     public ClientManager clientManager;
     private Coroutine clearingSpot;
 
+    [SerializeField] private GameObject m_badParticleEffect;
+    [SerializeField] private GameObject m_goodParticleEffect;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -62,7 +65,6 @@ public class Client : MonoBehaviour
         m_mainSprite.sprite = randomSprite;
 
         SpawnAnimation(m_animDuration);
-
     }
 
     
@@ -118,6 +120,7 @@ public class Client : MonoBehaviour
         {
             if (isAngry)
                 m_mainSprite.color = Color.Lerp(originColor, Color.red, timer / despawnTime);
+
             else
                 m_mainSprite.color = Color.Lerp(originColor, Color.cyan, timer / despawnTime);
             //mr.material = newMat;
@@ -126,8 +129,21 @@ public class Client : MonoBehaviour
             yield return null; 
         }
         clientManager.FreeSpawn(mySpawn);
-        
+
+        InstatiateParticleEffect();
+
         DespawnAnimation(m_animDuration);
+    }
+
+
+    private void InstatiateParticleEffect()
+    {
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y, -3);
+
+        if(isAngry)
+            Instantiate(m_badParticleEffect, pos, m_badParticleEffect.transform.rotation);
+        else
+            Instantiate(m_goodParticleEffect, pos, m_goodParticleEffect.transform.rotation);
     }
 
     private void DespawnAnimation(float animDuration)
