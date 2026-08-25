@@ -1,5 +1,6 @@
 using DG.Tweening;
 using FMODUnity;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,6 +46,9 @@ public class Player : MonoBehaviour
     [SerializeField] private StudioEventEmitter trashSound;
     [SerializeField] private StudioEventEmitter fillSound;
 
+    //Events
+    public event Action TrashDrinkEvent;
+    public event Action<string> PourDrinkEvent;
 
     private void Start()
     {
@@ -59,6 +63,47 @@ public class Player : MonoBehaviour
 
         //debug methods
         DebugAddToCup();
+    }
+
+    public void TrashCup()
+    {
+        TrashDrinkEvent?.Invoke();
+
+        Debug.Log("trash drink");
+        trashSound.Play();
+        currentIngredients.Clear();
+    }
+
+    public void PourEvent(string RFID)
+    {
+        PourDrinkEvent?.Invoke(RFID);
+
+        for (int i = 0; i < bottles.Count; i++)
+        {
+            //loop through all bottles and check if the RFID tag matches the bottle
+            if (RFID == bottles[i].PouringRFIDTag)
+            {
+                Debug.Log(RFID);
+                //enable pouring of the current bottle
+                bottles[i].isBeingUsed = true;
+                cupUI.UpdateBarColour(bottles[i].bottleIngredient);
+                cupUI.UpdateBarProgress(bottles[i].currentPourTime, bottles[i].timeToPour);
+
+            }
+            else //if (currentPourBottle == "NONE")
+            {
+                bottles[i].isBeingUsed = false;
+
+                if (bottles[i].currentPourTime > 0f)
+                {
+                    bottles[i].currentPourTime -= 0.5f * Time.deltaTime;
+                    cupUI.UpdateBarProgress(bottles[i].currentPourTime, bottles[i].timeToPour);
+                }
+                else
+                    bottles[i].currentPourTime = 0f;
+            }
+        }
+
     }
 
 
@@ -133,6 +178,7 @@ public class Player : MonoBehaviour
         //trigger   O N L Y   if it was previously held otherwise it will trigger everytime
         else if(currentButtonState == 1 && previousButtonState == 0)
         {
+            /*
             //trash the drink if its been held for a while
             if (currentButtonHoldTime >= trashButtonHoldTime)
             {
@@ -140,8 +186,9 @@ public class Player : MonoBehaviour
                 trashSound.Play();
                 currentIngredients.Clear();
             }
+            */
             //otherwise send drink
-            else if (currentButtonHoldTime <= trashButtonHoldTime)
+            if (currentButtonHoldTime <= trashButtonHoldTime)
             {
                 if (ReturnSelectedCoaster() > 0)
                 {
@@ -167,7 +214,6 @@ public class Player : MonoBehaviour
         //reset stat
         previousButtonState = currentButtonState;
     }
-
 
     //check clients recipe
     private void CheckClientRecipe()
@@ -216,7 +262,6 @@ public class Player : MonoBehaviour
         }
         return true;
     }
-
 
 
     private void PourBottle()
