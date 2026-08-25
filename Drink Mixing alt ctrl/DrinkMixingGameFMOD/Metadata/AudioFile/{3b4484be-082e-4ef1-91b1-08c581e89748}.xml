@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{3b4484be-082e-4ef1-91b1-08c581e89748}">
+		<property name="assetPath">
+			<value>848312__dwswords__glass-smash.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.6708124999999998</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{de7a49ec-64bb-4be1-bff5-9e7c2110ebd7}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ public class GameTimer : MonoBehaviour
 
     [SerializeField] private GameObject endGameUI;
 
+    [Header("Sounds")]
+    [SerializeField] private StudioEventEmitter EndGameSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,6 +51,7 @@ public class GameTimer : MonoBehaviour
         if (currentGameTimer <= 0)
         {
             isGameover = true;
+            EndGameSound.Play();
         }
 
     }

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,6 +51,10 @@ public class Client : MonoBehaviour
 
     [SerializeField] private GameObject m_badParticleEffect;
     [SerializeField] private GameObject m_goodParticleEffect;
+
+    [Header("Sounds")]
+    [SerializeField] private StudioEventEmitter m_happySound;
+    [SerializeField] private StudioEventEmitter m_disapointedSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -140,10 +145,16 @@ public class Client : MonoBehaviour
     {
         Vector3 pos = new Vector3(transform.position.x, transform.position.y, -3);
 
-        if(isAngry)
+        if (isAngry)
+        {
+            m_disapointedSound.Play();
             Instantiate(m_badParticleEffect, pos, m_badParticleEffect.transform.rotation);
+        }
         else
+        {
+            m_happySound.Play();
             Instantiate(m_goodParticleEffect, pos, m_goodParticleEffect.transform.rotation);
+        }
     }
 
     private void DespawnAnimation(float animDuration)
